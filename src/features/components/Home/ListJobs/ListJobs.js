@@ -40,12 +40,12 @@ export default function ListJobs() {
                   </div>
                   <div className="job__content">
                     <div className="job__title">
-                      <Link to="/jobs/work/1">
+                      <Link to={`/jobs/work/${ok.id}`}>
                         <h4 className="jobTitle">{ok.name}</h4>
                       </Link>
                     </div>
                     <div className="job__nameCompany">
-                      <Link to="/jobs/work/1">
+                      <Link to={`/jobs/work/${ok.id}`}>
                         <span>{ok.Company.name}</span>
                       </Link>
                     </div>
