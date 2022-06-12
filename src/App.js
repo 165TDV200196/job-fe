@@ -32,29 +32,28 @@ import CheckMenu from "./features/components/CheckMenu/CheckMenu";
 function App() {
   useEffect(() => {
     checkBar();
-  });
+  }, []);
 
   const [checkAdmin, setCheckAdmin] = useState();
   useEffect(() => {
     checkLoginApi.checkLogin().then((ok) => {
       // setUser(ok.data.user.role);
       let user = ok.data.user.role;
-      console.log(user);
       if (user === "admin" || user === "grant") {
         setCheckAdmin(
           <Route path="/admin">
             <Ladmin />
-          </Route>
+          </Route>,
         );
       } else {
         setCheckAdmin(
           <Route path="/admin">
             <Empty />
-          </Route>
+          </Route>,
         );
       }
     });
-  });
+  }, []);
 
   return (
     <div>

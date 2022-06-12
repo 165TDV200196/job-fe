@@ -17,7 +17,7 @@ export const lineSlide = () => {
     var tabItem = $$(".item");
     tabItem.forEach((tab, index) => {
       tab.onclick = function () {
-        $(".item.active").classList.remove("active");
+        $(".item.active")?.classList?.remove("active");
         line.style.width = this.offsetWidth + "px";
         line.style.left = this.offsetLeft + "px";
         this.classList.add("active");
@@ -129,7 +129,7 @@ export const GetCategoryHome = (e) => {
       data.push({
         name: list[i].name,
         icon: list[i].icon,
-        length: list[i].Works.length,
+        length: list[i]?.Works?.length,
       });
     }
     data.sort((a, b) => {
@@ -190,7 +190,7 @@ export const removeVietnameseTones = (str) => {
   // Bỏ dấu câu, kí tự đặc biệt
   str = str.replace(
     /!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g,
-    " "
+    " ",
   );
   return str;
 };

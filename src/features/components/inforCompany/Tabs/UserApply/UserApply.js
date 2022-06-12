@@ -29,8 +29,8 @@ export default function UserApply({ id }) {
         {!data ? (
           <SpinLoad />
         ) : (
-          data.map((ok) => (
-            <div className="content___box">
+          data.map((ok, index) => (
+            <div className="content___box" key={index}>
               <div className="content___box--title">
                 <Link to={`jobs/work/${ok.id}`} className="text-dark">
                   {ok.name}
@@ -42,8 +42,8 @@ export default function UserApply({ id }) {
                   {ok.workapply2.length === 0 ? (
                     <p className="text-danger">Chưa có ứng viên ứng tuyển</p>
                   ) : (
-                    ok.workapply2.map((oki) => (
-                      <div className="col-md-12">
+                    ok.workapply2.map((oki, index) => (
+                      <div className="col-md-12" key={index}>
                         <div className="d-flex">
                           <div className="content___box---user---img">
                             <img
@@ -54,30 +54,32 @@ export default function UserApply({ id }) {
                           </div>
                           <div className="content___box---user---infor position-relative">
                             <table>
-                              <tr>
-                                <td className="td">Tên người dùng</td>
-                                <td>
-                                  <Link to={`candidates/${oki.id}`}>
-                                    {oki.name}
-                                  </Link>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td className="td">Địa chỉ</td>
-                                <td>{oki.address}</td>
-                              </tr>
-                              <tr>
-                                <td className="td">Email</td>
-                                <td>{oki.email}</td>
-                              </tr>
-                              <tr>
-                                <td className="td">Điện thoại</td>
-                                <td>{oki.phone}</td>
-                              </tr>
-                              <tr>
-                                <td className="td">Giới tính</td>
-                                <td>{oki.male}</td>
-                              </tr>
+                              <tbody>
+                                <tr>
+                                  <td className="td">Tên người dùng</td>
+                                  <td>
+                                    <Link to={`candidates/${oki.id}`}>
+                                      {oki.name}
+                                    </Link>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td className="td">Địa chỉ</td>
+                                  <td>{oki.address}</td>
+                                </tr>
+                                <tr>
+                                  <td className="td">Email</td>
+                                  <td>{oki.email}</td>
+                                </tr>
+                                <tr>
+                                  <td className="td">Điện thoại</td>
+                                  <td>{oki.phone}</td>
+                                </tr>
+                                <tr>
+                                  <td className="td">Giới tính</td>
+                                  <td>{oki.male}</td>
+                                </tr>
+                              </tbody>
                             </table>
                             {oki.WorkApplies.link ? (
                               <button
@@ -96,7 +98,7 @@ export default function UserApply({ id }) {
                               title="Lời nhắn"
                             >
                               <button className="btn-message">
-                                <i class="fas fa-comment-dots"></i>
+                                <i className="fas fa-comment-dots"></i>
                               </button>
                             </Popover>
                           </div>

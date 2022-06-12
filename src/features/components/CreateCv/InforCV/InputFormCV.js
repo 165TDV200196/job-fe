@@ -19,17 +19,17 @@ function InputFormCV({
     onChange(value);
   };
   return (
-    <div class="form-group">
+    <div className="form-group">
       <label for="">{label}</label>
       <input
         type={type}
-        class="form-control"
+        className="form-control"
         value={value}
         onChange={HangdelOnChange}
         aria-describedby="helpId"
         placeholder={placeholder}
       />
-      <small id="helpId" class="form-text text-muted">
+      <small id="helpId" className="form-text text-muted">
         {helpText}
       </small>
       <br />

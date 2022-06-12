@@ -35,8 +35,8 @@ export default function Companys() {
           {loading ? (
             <SpinLoad />
           ) : (
-            companys.rows.map((data) => (
-              <div className="col-md-4">
+            companys.rows.map((data, index) => (
+              <div className="col-md-4" key={index}>
                 <div
                   className="company__box"
                   style={{

@@ -96,11 +96,15 @@ export default function Tag() {
                         onClick={() => {
                           handleStatus(ok.status, ok.id);
                         }}
+                        to="#"
                       >
                         <i className="far fa-thumbs-up "></i>
                       </Link>
                     ) : (
-                      <Link onClick={() => handleStatus(ok.status, ok.id)}>
+                      <Link
+                        onClick={() => handleStatus(ok.status, ok.id)}
+                        to="#"
+                      >
                         <i className="far fa-thumbs-down "></i>
                       </Link>
                     )}
@@ -117,7 +121,7 @@ export default function Tag() {
                         <QuestionCircleOutlined style={{ color: "green" }} />
                       }
                     >
-                      <Link>
+                      <Link to="#">
                         <i className="far fa-edit mr-4"></i>
                       </Link>
                     </Popconfirm>
@@ -128,7 +132,7 @@ export default function Tag() {
                       }}
                       icon={<QuestionCircleOutlined style={{ color: "red" }} />}
                     >
-                      <Link>
+                      <Link to="#">
                         <i className="far fa-trash-alt"></i>
                       </Link>
                     </Popconfirm>

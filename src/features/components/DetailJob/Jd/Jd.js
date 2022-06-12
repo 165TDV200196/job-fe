@@ -83,11 +83,11 @@ export default function Jd(props) {
     });
   };
   const handleOk = async () => {
-    setConfirmLoading(true);
-    if (messager === "") {
-      message.warning("Bạn cần nhập lời nhắn!");
+    if (messager === "" || tenFile === "") {
+      message.warning("Bạn cần nhập lời nhắn và CV đính kèm!");
     } else {
-      console.log("ji");
+      setConfirmLoading(true);
+
       await storage.ref(`fileCv/${file.name}`).put(file);
       const file1 = await storage.ref("fileCv").child(tenFile).getDownloadURL();
       await workApplyApi.postworkApply([
@@ -157,7 +157,7 @@ export default function Jd(props) {
                 className="apply"
                 onClick={() => showModal(checkDateDealtime(data.dealtime))}
               >
-                <Link>Ứng tuyển ngay</Link>
+                <Link to="#">Ứng tuyển ngay</Link>
               </div>
             </div>
             <div className="job__box">
@@ -166,7 +166,7 @@ export default function Jd(props) {
                   <p>Mô tả công việc</p>
                 </div>
                 <div className="job__box__content--jd">
-                  {renderHTML(data.description)}
+                  {renderHTML(data.description ?? "")}
                 </div>
               </div>
               <div>
@@ -174,7 +174,7 @@ export default function Jd(props) {
                   <p>Yêu cầu công việc</p>
                 </div>
                 <div className="job__box__content--jd">
-                  {renderHTML(data.form)}
+                  {renderHTML(data.form ?? "")}
                 </div>
               </div>
               <div>
@@ -182,7 +182,7 @@ export default function Jd(props) {
                   <p>Quyền lợi được hưởng</p>
                 </div>
                 <div className="job__box__content--jd">
-                  {renderHTML(data.interest)}
+                  {renderHTML(data.interest ?? "")}
                 </div>
               </div>
               <div>
@@ -202,7 +202,7 @@ export default function Jd(props) {
                   <p>Tính chất công việc</p>
                 </div>
                 <div className="job__box__content--jd">
-                  {renderHTML(data.nature)}
+                  {renderHTML(data.nature ?? "")}
                 </div>
               </div>
               <div>
@@ -210,7 +210,7 @@ export default function Jd(props) {
                   <p>Yêu cầu bằng cấp(tối thiểu)</p>
                 </div>
                 <div className="job__box__content--jd">
-                  {renderHTML(data.request)}
+                  {renderHTML(data.request ?? "")}
                 </div>
               </div>
               <div>
@@ -218,7 +218,7 @@ export default function Jd(props) {
                   <p>Yêu cầu kinh nghiệm</p>
                 </div>
                 <div className="job__box__content--jd">
-                  {renderHTML(data.exprience)}
+                  {renderHTML(data.exprience ?? "")}
                 </div>
               </div>
               <div>
@@ -231,7 +231,7 @@ export default function Jd(props) {
                     className="z-depth-1-half map-container"
                     style={{ width: "100%" }}
                   >
-                    {renderHTML(data.addressGoogle)}
+                    {renderHTML(data.addressGoogle ?? "")}
                   </div>
                 </div>
               </div>
@@ -246,7 +246,7 @@ export default function Jd(props) {
                 <div>
                   <div className="deadline__title">Hạn chót</div>
                   <div className="deadline__time">
-                    {formatDateWork(data.dealtime)}
+                    {formatDateWork(data.dealtime ?? "")}
                   </div>
                 </div>
               </div>

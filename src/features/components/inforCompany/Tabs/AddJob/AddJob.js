@@ -153,7 +153,7 @@ export default function AddJob({ id }) {
   const data = [];
   if (tags) {
     tags.rows.map((e) => {
-      data.push(<Option key={e.id}>{e.name}</Option>);
+      data.push(<Select.Option key={e.id}>{e.name}</Select.Option>);
     });
   }
   const onChangeTag = (e) => {
@@ -180,7 +180,7 @@ export default function AddJob({ id }) {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="d-flex">
             <div className="form-group w-45">
-              <label for="">Tên công việc</label>
+              <label htmlFor="">Tên công việc</label>
               <input
                 type="text"
                 className="form-control"
@@ -191,7 +191,7 @@ export default function AddJob({ id }) {
               />
             </div>
             <div className="form-group w-45">
-              <label for="">Địa chỉ</label>
+              <label htmlFor="">Địa chỉ</label>
               {/* <input type="text" className="form-control" {...register("address")} id="" aria-describedby="helpId" placeholder="" />
                             <small>Tên đường và tên tỉnh</small> */}
               <Select
@@ -199,15 +199,17 @@ export default function AddJob({ id }) {
                 onChange={onchangeAddress}
                 className="form-control w-100"
               >
-                {getProvinces().map((data) => (
-                  <Option value={FormatProvince(data.name)}>{data.name}</Option>
+                {getProvinces().map((data, index) => (
+                  <Select.Option value={FormatProvince(data.name)} key={index}>
+                    {data.name}
+                  </Select.Option>
                 ))}
               </Select>
             </div>
           </div>
           <div className="d-flex">
             <div className="form-group w-45">
-              <label for="">Email</label>
+              <label htmlFor="">Email</label>
               <input
                 type="text"
                 className="form-control"
@@ -218,7 +220,7 @@ export default function AddJob({ id }) {
               />
             </div>
             <div className="form-group w-45">
-              <label for="">Link google map</label>
+              <label htmlFor="">Link google map</label>
               <input
                 type="text"
                 className="form-control"
@@ -231,7 +233,7 @@ export default function AddJob({ id }) {
           </div>
           <div className="d-flex">
             <div className="form-group w-45">
-              <label for="">Điện thoại</label>
+              <label htmlFor="">Điện thoại</label>
               <input
                 type="text"
                 className="form-control"
@@ -242,7 +244,7 @@ export default function AddJob({ id }) {
               />
             </div>
             <div className="form-group w-45">
-              <label for="">Mức lương</label>
+              <label htmlFor="">Mức lương</label>
               <Input.Group compact className="w-100">
                 <Input
                   style={{ width: "45%", textAlign: "center" }}
@@ -305,8 +307,8 @@ export default function AddJob({ id }) {
                 onChange={onChangeNature}
                 className="form-control w-100"
               >
-                <Option value="Full Time">Full Time</Option>
-                <Option value="Part Time">Part Time</Option>
+                <Select.Option value="Full Time">Full Time</Select.Option>
+                <Select.Option value="Part Time">Part Time</Select.Option>
               </Select>
             </div>
             <div className="form-group w-45">
@@ -316,12 +318,14 @@ export default function AddJob({ id }) {
                 onChange={onChangeRequest}
                 className="form-control w-100"
               >
-                <Option value="Không yêu cầu">Không yêu cầu</Option>
-                <Option value="Cao đẳng">Cao đẳng</Option>
-                <Option value="Đại học">Đại học</Option>
-                <Option value="Cao học">Cao học</Option>
-                <Option value="Tiến sỹ">Tiến sỹ</Option>
-                <Option value="Thạc sỹ">Thạc sỹ</Option>
+                <Select.Option value="Không yêu cầu">
+                  Không yêu cầu
+                </Select.Option>
+                <Select.Option value="Cao đẳng">Cao đẳng</Select.Option>
+                <Select.Option value="Đại học">Đại học</Select.Option>
+                <Select.Option value="Cao học">Cao học</Select.Option>
+                <Select.Option value="Tiến sỹ">Tiến sỹ</Select.Option>
+                <Select.Option value="Thạc sỹ">Thạc sỹ</Select.Option>
               </Select>
             </div>
           </div>
@@ -335,8 +339,10 @@ export default function AddJob({ id }) {
                 onChange={onChangeTypeWork}
                 className="form-control w-100"
               >
-                {typeWorks.rows.map((data) => (
-                  <Option value={data.id}>{data.name}</Option>
+                {typeWorks.rows.map((data, index) => (
+                  <Select.Option value={data.id} key={index}>
+                    {data.name}
+                  </Select.Option>
                 ))}
               </Select>
             )}

@@ -140,6 +140,7 @@ export default function User() {
                   <div className="action">
                     {ok.status === 1 ? (
                       <Link
+                        to="#"
                         onClick={
                           ok.Roles[0].name === "grant"
                             ? noShow
@@ -155,7 +156,10 @@ export default function User() {
                         ></i>
                       </Link>
                     ) : (
-                      <Link onClick={() => handleStatus(ok.status, ok.id)}>
+                      <Link
+                        to="#"
+                        onClick={() => handleStatus(ok.status, ok.id)}
+                      >
                         <i className="far fa-thumbs-down "></i>
                       </Link>
                     )}
@@ -163,7 +167,7 @@ export default function User() {
                 ),
                 action: (
                   <div className="action">
-                    <Link>
+                    <Link to="#">
                       <i
                         className={`fas fa-user-shield ${
                           ok.Roles[0].name === "grant" ? "text-grant" : ""
