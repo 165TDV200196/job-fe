@@ -1,5 +1,5 @@
 import { Avatar, Dropdown, Menu } from "antd";
-import React, { useEffect, useRef, useState } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import checkLoginApi from "../../../../api/checkLogin";
 import {
@@ -24,9 +24,9 @@ export default function Mn(props) {
     }, 500);
   };
   let { pathname } = useLocation();
-  const bar_el = useRef(null);
-  const nav_el = useRef(null);
-  const line_el = useRef(null);
+  const bar_el = createRef();
+  const nav_el = createRef();
+  const line_el = createRef();
   const [user, setUser] = useState();
   okok(bar_el, nav_el, line_el);
   useEffect(() => {

@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { useRef } from "react";
+import React, { createRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../scss/Register/Register.scss";
 import RegisterCompany from "./RegisterCompany";
 import RegisterUser from "./RegisterUser";
 export default function Register() {
-  const UserEl = useRef(null);
-  const CompanyEl = useRef(null);
+  const UserEl = createRef();
+  const CompanyEl = createRef();
 
   const [check, setCheck] = useState(1);
   const onClickBtn = (e) => {

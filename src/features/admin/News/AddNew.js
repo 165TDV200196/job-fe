@@ -93,7 +93,7 @@ export default function AddNew() {
               avatar: anh,
               content: content,
               id: id,
-            })
+            }),
           );
         } else {
           await tagNewApi.deletetagNew(id);
@@ -110,7 +110,7 @@ export default function AddNew() {
               avatar: anh,
               content: content,
               id: id,
-            })
+            }),
           );
         }
       } else {
@@ -121,7 +121,7 @@ export default function AddNew() {
               samary: data.samary,
               content: content,
               id: id,
-            })
+            }),
           );
         } else {
           await tagNewApi.deletetagNew(id);
@@ -130,15 +130,14 @@ export default function AddNew() {
             let tag = tagId[i];
             data.push({ newId: id, tagId: tag });
           }
-          console.log(data);
           await tagNewApi.posttagNew(data);
-          await dispatch(
+          dispatch(
             updatenew({
               name: data.name,
               samary: data.samary,
               content: content,
               id: id,
-            })
+            }),
           );
         }
       }
@@ -152,6 +151,15 @@ export default function AddNew() {
       for (let i = 0; i < tagId.length; i++) {
         tagnew.push({ tagId: tagId[i] });
       }
+      console.log({
+        name: data.name,
+        samary: data.samary,
+        content: content,
+        avatar: anh,
+        useId: 1,
+        status: 0,
+        tagnew: tagnew,
+      });
       dispatch(
         addnew({
           name: data.name,
@@ -161,7 +169,7 @@ export default function AddNew() {
           useId: 1,
           status: 0,
           tagnew: tagnew,
-        })
+        }),
       );
     }
     setTimeout(() => {
@@ -187,7 +195,7 @@ export default function AddNew() {
 
   if (!loadingTag) {
     tags.rows.map((ok) => {
-      data.push(<Option key={ok.id}>{ok.name}</Option>);
+      data.push(<Select.Option key={ok.id}>{ok.name}</Select.Option>);
     });
   }
   return (
@@ -222,7 +230,7 @@ export default function AddNew() {
               </label>
               <input
                 type="file"
-                hidden="true"
+                hidden
                 name=""
                 id="img"
                 onChange={hangdelimage}

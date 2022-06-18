@@ -1,45 +1,85 @@
 import { DatePicker, Input, message, Select, Space } from "antd";
-import { Option } from "antd/lib/mentions";
 import JoditEditor from "jodit-react";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { getProvinces } from "sub-vn";
+import tagWorkApi from "../../../../../api/tagWorkApi";
+import workApi from "../../../../../api/workApi";
+import workTypeOfWorkApi from "../../../../../api/workTypeOfWorkApi";
 import { tagData } from "../../../../admin/Slice/tagSlice";
 import { typeWorkData } from "../../../../admin/Slice/typeWorkSlice";
-import { addwork } from "../../../../admin/Slice/workSlice";
+import { addwork, updatework } from "../../../../admin/Slice/workSlice";
 import { FormatProvince } from "../../../../container/Functionjs";
 import SpinLoad from "../../../Spin/Spin";
-export default function AddJob({ id }) {
-  // const { id } = useParams()
+export default function AddJob({ id, idEdit, onChangeTabs }) {
   const dispatch = useDispatch();
-  const actionResultTag = async () => {
-    await dispatch(tagData({ status: 1 }));
+  const actionResultTag = () => {
+    dispatch(tagData({ status: 1 }));
   };
-  const actionResultTypeOfWork = async () => {
-    await dispatch(typeWorkData({ status: 1 }));
+  const actionResultTypeOfWork = () => {
+    dispatch(typeWorkData({ status: 1 }));
   };
+  const getTag = (e) => {
+    let tag = [];
+    for (let i = 0; i < e.length; i++) {
+      tag.push(`${e[i].tagId}`);
+    }
+    return tag;
+  };
+  useEffect(async () => {
+    if (idEdit) {
+      reset(
+        await workApi.getOne(idEdit).then((data) => {
+          console.log("data", data);
+          setState({
+            ...state,
+            price1: String(data.price1),
+            price2: String(data.price2),
+            nature: data.nature,
+            date: data.dealtime,
+            address: data.address,
+            typeofworkId: data.TypeOfWorks[0]?.id,
+            tagId: getTag(data.tagWork),
+          });
+          setDescripton(data.description);
+          setInterest(data.interest);
+          setForm(data.form);
+          setExprience(data.exprience);
+          return data;
+        }),
+      );
+    } else {
+      reset(objDefault);
+      setDescripton("");
+      setInterest("");
+      setForm("");
+      setExprience("");
+    }
+  }, [idEdit]);
   const tags = useSelector((state) => state.tags.tag.data);
   const loadingTag = useSelector((state) => state.tags.loading);
   const typeWorks = useSelector((state) => state.typeWorks.typeWork.data);
   const loadingTypeWork = useSelector((state) => state.typeWorks.loading);
-  const history = useHistory();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const [interest, setInterest] = useState();
   const [exprience, setExprience] = useState();
   const [form, setForm] = useState();
   const [description, setDescripton] = useState();
-  const [state, setState] = useState({
+  let objDefault = {
     load: false,
     typeofworkId: 2,
     address: "Hà Nội",
-    tagId: "",
+    tagId: [],
     price1: "",
     nature: "Full Time",
     request: "Không yêu cầu",
     price2: "",
-    date: "",
+    date: undefined,
+  };
+  const [state, setState] = useState({
+    ...objDefault,
   });
   const {
     tagId,
@@ -52,7 +92,7 @@ export default function AddJob({ id }) {
     typeofworkId,
     address,
   } = state;
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (
       data.name === "" ||
       price1 === "" ||
@@ -76,38 +116,81 @@ export default function AddJob({ id }) {
         ...state,
         load: true,
       });
-      var TagWork = [];
+      var tagWork = [];
       for (let i = 0; i < tagId.length; i++) {
-        TagWork.push({ tagId: tagId[i] });
+        tagWork.push({ tagId: tagId[i] });
       }
       var workType = [];
       workType.push({ typeofworkId: typeofworkId });
-      const action = addwork({
-        workType: workType,
-        companyId: id,
-        name: data.name,
-        status: 1,
-        price1,
-        price2,
-        request,
-        nature,
-        TagWork,
-        interest,
-        description,
-        exprience,
-        form,
-        address,
-        phone: data.phone,
-        email: data.email,
-        addressGoogle: data.addressGoogle,
-        dealtime: date,
-      });
-      dispatch(action);
-      // console.log({ workType, companyId: id, name: data.name, status: 1, price1, price2, request, nature, TagWork, interest, description, exprience, form, address: data.address, phone: data.phone, email: data.email, addressGoogle: data.addressGoogle, dealtime: date });
-      // setTimeout(() => {
-      //     actionResult({ page: localStorage.getItem("pageTag") || 1 });
-      // }, 700);
-      history.push("/");
+      if (idEdit) {
+        await workTypeOfWorkApi.deleteWorkTypeOfWork(idEdit);
+        await workTypeOfWorkApi.postWorkTypeOfWork([
+          {
+            typeofworkId,
+            workId: idEdit,
+          },
+        ]);
+        await tagWorkApi.deleteTagWork(idEdit);
+        var dataTag = [];
+        for (let i = 0; i < tagId.length; i++) {
+          let tag = tagId[i];
+          dataTag.push({ workId: idEdit, tagId: tag });
+        }
+        await tagWorkApi.postTagWork(dataTag);
+        const action = updatework({
+          workType,
+          companyId: id,
+          id: idEdit,
+          name: data.name,
+          status: 1,
+          price1,
+          price2,
+          request,
+          nature,
+          interest,
+          description,
+          exprience,
+          form,
+          address,
+          phone: data.phone,
+          email: data.email,
+          addressGoogle: data.addressGoogle,
+          dealtime: date,
+        });
+        dispatch(action);
+        setState({
+          ...state,
+          load: false,
+        });
+        onChangeTabs("1", true);
+      } else {
+        const action = addwork({
+          workType,
+          companyId: id,
+          name: data.name,
+          status: 1,
+          price1,
+          price2,
+          request,
+          nature,
+          tagWork,
+          interest,
+          description,
+          exprience,
+          form,
+          address,
+          phone: data.phone,
+          email: data.email,
+          addressGoogle: data.addressGoogle,
+          dealtime: date,
+        });
+        dispatch(action);
+        setState({
+          ...state,
+          load: false,
+        });
+        onChangeTabs("1", true);
+      }
     }
   };
   const onChangePrice1 = (e) => {
@@ -192,8 +275,7 @@ export default function AddJob({ id }) {
             </div>
             <div className="form-group w-45">
               <label htmlFor="">Địa chỉ</label>
-              {/* <input type="text" className="form-control" {...register("address")} id="" aria-describedby="helpId" placeholder="" />
-                            <small>Tên đường và tên tỉnh</small> */}
+
               <Select
                 value={address}
                 onChange={onchangeAddress}
@@ -250,6 +332,7 @@ export default function AddJob({ id }) {
                   style={{ width: "45%", textAlign: "center" }}
                   onChange={onChangePrice1}
                   placeholder="Ít nhất"
+                  value={price1}
                 />
                 <Input
                   className="site-input-split"
@@ -268,6 +351,7 @@ export default function AddJob({ id }) {
                   }}
                   onChange={onChangePrice2}
                   placeholder="Nhiều nhất"
+                  value={price2}
                 />
               </Input.Group>
               <small>Không nhập nếu bạn muốn thương lượng</small>
@@ -280,15 +364,18 @@ export default function AddJob({ id }) {
                 <DatePicker
                   onChange={onChangeDate}
                   className="form-control input-ant"
+                  value={moment(date ?? new Date(), "YYYY-MM-DD")}
                 />
               </Space>
             </div>
             <div className="form-group w-45">
-              <label htmlFor="">Tag liên quan</label>
+              <label htmlFor="">Tags liên quan</label>
+              {console.log("tagId", tagId)}
               {loadingTag ? (
                 <SpinLoad />
               ) : (
                 <Select
+                  value={tagId ? tagId : []}
                   mode="tags"
                   onChange={onChangeTag}
                   className="form-control"
@@ -306,6 +393,7 @@ export default function AddJob({ id }) {
                 defaultValue="Full Time"
                 onChange={onChangeNature}
                 className="form-control w-100"
+                value={nature}
               >
                 <Select.Option value="Full Time">Full Time</Select.Option>
                 <Select.Option value="Part Time">Part Time</Select.Option>
@@ -317,6 +405,7 @@ export default function AddJob({ id }) {
                 defaultValue="Không yêu cầu"
                 onChange={onChangeRequest}
                 className="form-control w-100"
+                value={request}
               >
                 <Select.Option value="Không yêu cầu">
                   Không yêu cầu
@@ -383,8 +472,10 @@ export default function AddJob({ id }) {
             <SpinLoad />
           ) : (
             <div className="text-center mtb">
-              {" "}
-              <input type="submit" value="Tạo công việc" />{" "}
+              <input
+                type="submit"
+                value={idEdit ? "Sửa công việc" : "Tạo công việc"}
+              />
             </div>
           )}
         </form>

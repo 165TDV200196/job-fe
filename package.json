@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "firebase": "^8.6.5",
     "jodit-react": "^1.0.88",
+    "moment": "^2.29.3",
     "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

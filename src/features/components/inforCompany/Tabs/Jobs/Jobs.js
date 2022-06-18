@@ -6,7 +6,14 @@ import workApi from "../../../../../api/workApi";
 import { formatDateWork } from "../../../../container/Functionjs";
 import SpinLoad from "../../../Spin/Spin";
 
-export default function Jobs({ id, heard, hident }) {
+export default function Jobs({
+  id,
+  heard,
+  hident,
+  onChangeTabs,
+  onIdEdit,
+  resetJob,
+}) {
   const [data, setData] = useState();
   const [state, setState] = useState({
     page: localStorage.getItem("pageWorkHomeInfor") || 1,
@@ -22,7 +29,7 @@ export default function Jobs({ id, heard, hident }) {
   useEffect(() => {
     localStorage.setItem("pageWorkHomeInfor", page);
     getApi();
-  }, [page, loadEffect]);
+  }, [page, loadEffect, resetJob]);
   const hangdleDelete = async (e) => {
     await workApi.deletework(e);
     setLoadEffect(!loadEffect);
@@ -51,17 +58,31 @@ export default function Jobs({ id, heard, hident }) {
                   {hident ? (
                     ""
                   ) : (
-                    <Popconfirm
-                      title="Bạn có muốn xoá？"
-                      onConfirm={() => {
-                        hangdleDelete(ok.id);
-                      }}
-                      icon={
-                        <QuestionCircleOutlined style={{ color: "green" }} />
-                      }
-                    >
-                      <div className="btn-delete-job">Xoá Công việc</div>
-                    </Popconfirm>
+                    <>
+                      <Popconfirm
+                        title="Bạn có muốn xoá？"
+                        onConfirm={() => {
+                          hangdleDelete(ok.id);
+                        }}
+                        icon={
+                          <QuestionCircleOutlined style={{ color: "green" }} />
+                        }
+                      >
+                        <div className="btn-delete-job">Xoá Công việc</div>
+                      </Popconfirm>
+                      <Popconfirm
+                        title="Bạn có muốn sửa?"
+                        onConfirm={() => {
+                          onChangeTabs("2");
+                          onIdEdit(ok.id);
+                        }}
+                        icon={
+                          <QuestionCircleOutlined style={{ color: "green" }} />
+                        }
+                      >
+                        <div className="btn-edit-job">Sửa Công việc</div>
+                      </Popconfirm>
+                    </>
                   )}
                   <div className="job__tag">hot</div>
                   <div className="job__logo">

@@ -1,52 +1,69 @@
 @import "../Variable.scss";
 @mixin jobBox {
-    .job__box{
+    .job__box {
         border-radius: 5px;
         border: 1px solid silver;
         display: flex;
         align-items: center;
         position: relative;
         overflow: hidden;
-        transition: .2s;
+        transition: 0.2s;
         transform: translateY(0px);
-        .job__logo{
-             width: 120px;
+        .job__logo {
+            width: 120px;
             height: 120px;
             padding-top: 15px;
             padding-bottom: 15px;
-            margin-right: .5rem;
-            img{
+            margin-right: 0.5rem;
+            img {
                 width: 100%;
                 height: 100%;
             }
         }
-        .btn-delete-job{
-            padding: .5rem 1rem;
+        .btn-delete-job {
+            padding: 0.5rem 1rem;
             border: 1px solid $bgButtonApplyHover;
             background-color: white;
             color: $bgButtonApplyHover;
-            transition: .5s;
+            transition: 0.5s;
             position: absolute;
             top: 70%;
             left: 85%;
             border-radius: 5px;
             cursor: pointer;
-            transform: translate(-50%,-50%);
-            &:hover{
+            transform: translate(-50%, -50%);
+            &:hover {
                 background-color: $bgButtonApplyHover;
-            border: 1px solid $bgButtonApplyHover;
-
-            color: white;
+                border: 1px solid $bgButtonApplyHover;
+                color: white;
             }
         }
-        .job__content{
+        .btn-edit-job {
+            padding: 0.5rem 1rem;
+            border: 1px solid $bgButtonApplyHover;
+            background-color: white;
+            color: $bgButtonApplyHover;
+            transition: 0.5s;
+            position: absolute;
+            top: 70%;
+            left: 70%;
+            border-radius: 5px;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+            &:hover {
+                background-color: $bgButtonApplyHover;
+                border: 1px solid $bgButtonApplyHover;
+                color: white;
+            }
+        }
+        .job__content {
             width: 100%;
-            .job__title{
+            .job__title {
                 width: 90%;
-                a{
+                a {
                     color: #2c3038;
                     text-decoration: none;
-                    .jobTitle{
+                    .jobTitle {
                         overflow: hidden;
                         display: -webkit-box;
                         -webkit-line-clamp: 1;
@@ -58,10 +75,10 @@
                     }
                 }
             }
-            .job__nameCompany{
+            .job__nameCompany {
                 padding-bottom: 0.1rem;
                 width: 95%;
-                a{
+                a {
                     color: #2c3038;
                     text-decoration: none;
                     overflow: hidden;
@@ -71,34 +88,34 @@
                     text-overflow: ellipsis;
                 }
             }
-            .job__detail{
+            .job__detail {
                 display: flex;
-                &--address{
-                    display: flex;
-                    margin-right: .7rem;
-                    .job__icon{
-                        font-size: .9rem;
-                        margin-right: .2rem;
-                    }
-                }
-                &--deadline{
+                &--address {
                     display: flex;
                     margin-right: 0.7rem;
-                    .job__icon{
-                        font-size: .9rem;
-                        margin-right: .2rem;
+                    .job__icon {
+                        font-size: 0.9rem;
+                        margin-right: 0.2rem;
                     }
                 }
-                &--salary{
+                &--deadline {
                     display: flex;
-                    .job__icon{
-                        font-size: .9rem;
-                        margin-right: .2rem;
+                    margin-right: 0.7rem;
+                    .job__icon {
+                        font-size: 0.9rem;
+                        margin-right: 0.2rem;
+                    }
+                }
+                &--salary {
+                    display: flex;
+                    .job__icon {
+                        font-size: 0.9rem;
+                        margin-right: 0.2rem;
                     }
                 }
             }
         }
-        .job__tag{
+        .job__tag {
             position: absolute;
             width: 100px;
             background-color: red;
@@ -108,9 +125,9 @@
             transform: rotate(45deg);
             color: white;
             text-transform: uppercase;
-            font-size: .9rem;
+            font-size: 0.9rem;
         }
-        &:hover{
+        &:hover {
             transform: translateY(-5px);
             border: 1px solid transparent;
             box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -118,72 +135,71 @@
         }
     }
 }
-.ListJob{
+
+.ListJob {
     @include jobBox();
-    .col-lg-6{
+    .col-lg-6 {
         margin-bottom: 1rem;
     }
 }
-@media (max-width:576px){
-    .ListJob{
-        .container{
+
+@media (max-width: 576px) {
+    .ListJob {
+        .container {
             padding: 0;
         }
-        .job__box{
+        .job__box {
             border-radius: 0;
             border-top: 1px solid silver;
             border-bottom: 1px solid silver;
             border-left: none;
             border-right: none;
-
-            .job__logo{
-
+            .job__logo {
                 // width: 50px;
                 // height: 50px;
-                margin-right: .5rem;
-                img{
+                margin-right: 0.5rem;
+                img {
                     width: 100%;
                     height: 100%;
                 }
             }
-            .job__content{
-                .job__title{
-                    a{
+            .job__content {
+                .job__title {
+                    a {
                         color: #2c3038;
                         text-decoration: none;
-
                     }
                 }
-                .job__nameCompany{
+                .job__nameCompany {
                     padding-bottom: 0.1rem;
-                    a{
+                    a {
                         color: #2c3038;
                         text-decoration: none;
                     }
                 }
-                .job__detail{
+                .job__detail {
                     display: flex;
-                    &--address{
+                    &--address {
                         display: flex;
-                        margin-right: .7rem;
-                        .job__icon{
-                            font-size: .9rem;
-                            margin-right: .2rem;
+                        margin-right: 0.7rem;
+                        .job__icon {
+                            font-size: 0.9rem;
+                            margin-right: 0.2rem;
                         }
                     }
-                    &--deadline{
+                    &--deadline {
                         display: none;
                         margin-right: 0.7rem;
-                        .job__icon{
-                            font-size: .9rem;
-                            margin-right: .2rem;
+                        .job__icon {
+                            font-size: 0.9rem;
+                            margin-right: 0.2rem;
                         }
                     }
-                    &--salary{
+                    &--salary {
                         display: flex;
-                        .job__icon{
-                            font-size: .9rem;
-                            margin-right: .2rem;
+                        .job__icon {
+                            font-size: 0.9rem;
+                            margin-right: 0.2rem;
                         }
                     }
                 }
@@ -191,17 +207,26 @@
         }
     }
 }
-@media (max-width:1125px){
-    .ListJob{
-        .btn-delete-job{
-            padding: .5rem 1rem;
+
+@media (max-width: 1125px) {
+    .ListJob {
+        .btn-delete-job {
+            padding: 0.5rem 1rem;
             top: 70%;
             background-color: $bgButtonSubmit;
             left: 45%;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, -50%);
+        }
+        .btn-edit-job {
+            padding: 0.5rem 1rem;
+            top: 70%;
+            background-color: $bgButtonSubmit;
+            left: 35%;
+            transform: translate(-50%, -50%);
         }
     }
 }
+
 // @media (max-width:991px){
 //     .jobTitle{
 //         width: 500px !important;
