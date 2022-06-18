@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import workApi from "../../../api/workApi";
 import Footer from "../Home/Footer/Footer";
-import Menu from "../MenuNotHome/MenuNotHome";
 import BannerJob from "./BannerJob/BannerJob";
 import Breadcrumb from "./Breadcrumb/Breadcrumb";
 import Jd from "./Jd/Jd";

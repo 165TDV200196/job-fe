@@ -1,5 +1,4 @@
 import { Select, Spin } from "antd";
-import { Option } from "antd/lib/mentions";
 import JoditEditor from "jodit-react";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";

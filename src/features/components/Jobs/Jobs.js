@@ -3,7 +3,6 @@ import workApi from "../../../api/workApi";
 import { getQueryVariable } from "../../container/Functionjs";
 import Footer from "../Home/Footer/Footer";
 import ListNew from "../Home/New/ListNew";
-import MenuNotHome from "../MenuNotHome/MenuNotHome";
 import Breadcrumbs from "./Breadcrumb/Breadcrumb";
 import Job from "./ListJobs/Job";
 import Search from "./Search/Search";

@@ -11,11 +11,9 @@ export default function UserApply({ id }) {
       setData(data.Works);
     });
   };
-  console.log(data);
   useEffect(() => {
     getApi();
   }, []);
-  const [showMess, setShowMess] = useState(false);
   return (
     <div className="userApply">
       <div className="heading">

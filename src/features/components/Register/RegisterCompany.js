@@ -1,14 +1,12 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import { message } from "antd";
+import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { companyData } from "../../admin/Slice/companySlice";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import companyApi from "../../../api/companyApi";
-import { useState } from "react";
-import axios from "axios";
-import { message } from "antd";
+import * as yup from "yup";
+import { companyData } from "../../admin/Slice/companySlice";
 export default function RegisterCompany() {
   const schema = yup.object().shape({
     userName: yup.string().email().required(),

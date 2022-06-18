@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import MenuNotHome from "../../MenuNotHome/MenuNotHome";
-import Footer from "../../Home/Footer/Footer";
-import Breadcrumb from "../Breadcrumb/Breadcrumb";
-import InputFormCV from "./InputFormCV";
-import { Validators } from "./Validator";
 import JoditEditor from "jodit-react";
+import React, { useState } from "react";
+import Footer from "../../Home/Footer/Footer";
+import MenuNotHome from "../../MenuNotHome/MenuNotHome";
+import Breadcrumb from "../Breadcrumb/Breadcrumb";
 export default function InforCV() {
   const [target, setTarget] = useState();
   const [education, setEducation] = useState();

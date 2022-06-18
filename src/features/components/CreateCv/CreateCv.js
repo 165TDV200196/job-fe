@@ -1,9 +1,7 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { formCVData } from "../../admin/Slice/formCVSlice";
 import Footer from "../Home/Footer/Footer";
-import MenuNotHome from "../MenuNotHome/MenuNotHome";
 import Breadcrumb from "./Breadcrumb/Breadcrumb";
 import ListCV from "./ListCV/ListCV";
 export default function CreateCv() {

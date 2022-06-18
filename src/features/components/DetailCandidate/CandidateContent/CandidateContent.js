@@ -2,9 +2,8 @@ import React from "react";
 import renderHTML from "react-render-html";
 import { Link } from "react-router-dom";
 import { checkDateCompany } from "../../../container/Functionjs";
-
 import "../../../scss/DetailCandidate/CandidateContent.scss";
-import KeyTag from "../../Jobs/ListJobs/KeyTag";
+
 export default function CandidateContent({ data }) {
   console.log(data);
   return (

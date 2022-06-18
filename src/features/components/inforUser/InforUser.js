@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import checkLoginApi from "../../../api/checkLogin";
-import MenuNotHome from "../MenuNotHome/MenuNotHome";
+import Footer from "../Home/Footer/Footer";
 import SpinLoad from "../Spin/Spin";
 import Breadcrumb from "./Breadcrumb/Breadcrumb";
-import Footer from "../Home/Footer/Footer";
 import Tabs from "./Tabs/Tabs";
 export default function InforUser() {
   const [user, setUser] = useState();
