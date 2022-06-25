@@ -29,16 +29,23 @@ import checkLoginApi from "./api/checkLogin";
 import Empty from "./features/components/Empty/Empty";
 import Menu from "./features/components/Home/Menu/Menu";
 import CheckMenu from "./features/components/CheckMenu/CheckMenu";
+import TestTimeOut from "./features/TestTimeOut";
 function App() {
   useEffect(() => {
     checkBar();
   }, []);
 
+  const [isLoad, setIsLoad] = useState(true);
+
+  const handleLogin = () => {
+    setIsLoad(!isLoad);
+  };
+
   const [checkAdmin, setCheckAdmin] = useState();
   useEffect(() => {
     checkLoginApi.checkLogin().then((ok) => {
-      // setUser(ok.data.user.role);
       let user = ok.data.user.role;
+      console.log("ddddd");
       if (user === "admin" || user === "grant") {
         setCheckAdmin(
           <Route path="/admin">
@@ -53,7 +60,7 @@ function App() {
         );
       }
     });
-  }, []);
+  }, [isLoad]);
 
   return (
     <div>
@@ -68,9 +75,6 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          {/* <Route path="/admin">
-            <Ladmin />
-          </Route> */}
           {checkAdmin}
           <Route exact path="/jobs">
             <Jobs />
@@ -97,7 +101,7 @@ function App() {
             <DetailCandidate />
           </Route>
           <Route exact path="/login">
-            <Login />
+            <Login onLogin={handleLogin} />
           </Route>
           <Route exact path="/register">
             <Register />
@@ -116,6 +120,9 @@ function App() {
           </Route>
           <Route exact path="/inforCV">
             <InforCV />
+          </Route>
+          <Route exact path="/testTimeOut">
+            <TestTimeOut />
           </Route>
         </Switch>
       </Router>

@@ -1,12 +1,12 @@
 import { Pagination, Spin, Table } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory, useRouteMatch } from "react-router-dom";
-import { removework, updatework, workData } from "../Slice/workSlice";
+import { Link } from "react-router-dom";
+import { updatework, workData } from "../Slice/workSlice";
 export default function Work() {
   const columns = [
     {
-      title: "tên work",
+      title: "Tên công việc",
       dataIndex: "name",
     },
     {
@@ -15,22 +15,24 @@ export default function Work() {
     },
   ];
 
-  const match = useRouteMatch();
   const work = useSelector((state) => state.works.work.data);
   const loading = useSelector((state) => state.works.loading);
+  const [isLoad, setIsLoad] = useState(false);
+
+  const debounce = useRef(null);
   const dispatch = useDispatch();
   const [state, setState] = useState({
     page: localStorage.getItem("pagework") || 1,
   });
   const { page } = state;
-  const actionResult = async (page) => {
-    await dispatch(workData(page));
+  const actionResult = async (page, name) => {
+    await dispatch(workData(page, name));
   };
+  const [nameCompanies, setNameCompanies] = useState("");
   useEffect(() => {
     localStorage.setItem("pagework", page);
-    actionResult({ page: page });
-  }, [page]);
-  const history = useHistory();
+    actionResult({ page: page, name: nameCompanies });
+  }, [page, isLoad]);
   const handleStatus = (e, id) => {
     if (e === 1) {
       dispatch(updatework({ status: 0, id: id }));
@@ -47,15 +49,18 @@ export default function Work() {
       pageCurent: page,
     });
   };
-  const hangdleEdit = (id) => {
-    history.replace(`${match.url}/editwork/${id}`);
-  };
-  const hangdleDelete = (e) => {
-    dispatch(removework(e));
-    setTimeout(() => {
-      actionResult({ page: page });
+
+  const handleOnchange = (e) => {
+    const { value } = e.target;
+    setNameCompanies(value);
+    if (debounce.current) {
+      clearTimeout(debounce.current);
+    }
+    debounce.current = setTimeout(() => {
+      setIsLoad(!isLoad);
     }, 500);
   };
+
   return (
     <div id="admin">
       <div className="heading">
@@ -71,6 +76,15 @@ export default function Work() {
           </div>
         ) : (
           <div>
+            <div className="input-seach">
+              <input
+                type="text"
+                value={nameCompanies}
+                autoFocus
+                onChange={handleOnchange}
+                placeholder="Tìm theo tên công ty..."
+              />
+            </div>
             <Table
               columns={columns}
               pagination={false}

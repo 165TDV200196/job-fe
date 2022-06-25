@@ -1,19 +1,96 @@
+import { Modal, Popover, DatePicker, Space } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import workApplyApi from "../../../../../api/workApplyApi";
 import "../../../../scss/inforCompany/UserApply.scss";
-import { Popover } from "antd";
 import SpinLoad from "../../../Spin/Spin";
+import moment from "moment";
+import sendMailApi from "../../../../../api/sendMail";
 export default function UserApply({ id }) {
   const [data, setData] = useState();
+  const [numReload, setNumReload] = useState(1);
+  const [state, setState] = useState({
+    isModalUserVisible: false,
+    titleModal: "",
+    date: new Date(),
+    textSendMail: "",
+    email: "",
+    userId: "",
+    workId: "",
+  });
+
+  const {
+    isModalUserVisible,
+    titleModal,
+    date,
+    textSendMail,
+    email,
+    userId,
+    workId,
+  } = state;
+
   const getApi = async () => {
     await workApplyApi.checkWorkApply(id).then((data) => {
       setData(data.Works);
     });
   };
+
+  const handleOk = () => {
+    setState({ ...state, isModalUserVisible: false });
+    sendMailApi.Send({
+      email,
+      textSendMail,
+      sechedule: moment(date).format("DD/MM/YYYY"),
+    });
+    workApplyApi
+      .editworkApply({ userId, workId, sechedule: date })
+      .then((data) => {
+        setNumReload((prev) => prev + 1);
+      });
+  };
+
+  const handleCancel = () => {
+    setState({ ...state, isModalUserVisible: false });
+  };
+
+  const handleClickContact = (name, email, userId, workId) => {
+    setState({
+      ...state,
+      isModalUserVisible: true,
+      titleModal: `Bạn đang liên hệ với ứng viên ${name}`,
+      email,
+      userId,
+      workId,
+    });
+  };
+
+  const onChangeDate = (date, dateString) => {
+    if (dateString) {
+      setState({
+        ...state,
+        date: dateString,
+      });
+    }
+  };
+
+  const handleOnchaneTextSendMail = (e) => {
+    const { value } = e.target;
+    setState({
+      ...state,
+      textSendMail: value,
+    });
+  };
+
   useEffect(() => {
     getApi();
-  }, []);
+  }, [numReload]);
+
+  let styleTextarea = {
+    width: "100%",
+    resize: "none",
+    borderRadius: "6px",
+    padding: "10px 20px",
+  };
   return (
     <div className="userApply">
       <div className="heading">
@@ -77,20 +154,76 @@ export default function UserApply({ id }) {
                                   <td className="td">Giới tính</td>
                                   <td>{oki.male}</td>
                                 </tr>
+                                {oki.WorkApplies.sechedule && (
+                                  <tr>
+                                    <td className="td">Lịch phỏng vấn</td>
+                                    <td>
+                                      {moment(oki.WorkApplies.sechedule).format(
+                                        "DD/MM/yyyy",
+                                      )}
+                                    </td>
+                                  </tr>
+                                )}
                               </tbody>
                             </table>
-                            {oki.WorkApplies.link ? (
-                              <button
-                                className="btn-link"
-                                onClick={() => {
-                                  window.open(oki.WorkApplies.link);
-                                }}
-                              >
-                                Xem CV
-                              </button>
-                            ) : (
-                              ""
-                            )}
+                            <div className="btn-userApply">
+                              {oki.WorkApplies.link && (
+                                <button
+                                  className="btn-link"
+                                  onClick={() => {
+                                    window.open(oki.WorkApplies.link);
+                                  }}
+                                >
+                                  Xem CV
+                                </button>
+                              )}
+                              {!oki.WorkApplies.sechedule && (
+                                <button
+                                  className="btn-link"
+                                  onClick={() =>
+                                    handleClickContact(
+                                      oki.name,
+                                      oki.email,
+                                      oki.id,
+                                      ok.id,
+                                    )
+                                  }
+                                >
+                                  Liên hệ ngay
+                                </button>
+                              )}
+                            </div>
+                            <Modal
+                              title={titleModal}
+                              visible={isModalUserVisible}
+                              onOk={handleOk}
+                              onCancel={handleCancel}
+                            >
+                              <p>
+                                Lịch phỏng vấn:{" "}
+                                <Space direction="vertical" className="w-100">
+                                  <DatePicker
+                                    onChange={onChangeDate}
+                                    className="form-control input-ant"
+                                    value={moment(
+                                      date ?? new Date(),
+                                      "YYYY-MM-DD",
+                                    )}
+                                  />
+                                </Space>
+                              </p>
+                              <p>Lời nhắn:</p>
+                              <textarea
+                                className="box-textarea"
+                                name=""
+                                placeholder="Điền các thông tin ứng tuyển cho ứng viên và đừng quên lịch phỏng vấn cụ thể"
+                                value={textSendMail}
+                                onChange={handleOnchaneTextSendMail}
+                                rows="11"
+                                style={styleTextarea}
+                              ></textarea>
+                            </Modal>
+
                             <Popover
                               content={oki.WorkApplies.message}
                               title="Lời nhắn"

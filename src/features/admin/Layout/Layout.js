@@ -3,7 +3,11 @@ import { Layout, Menu } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
 import "../../scss/Admin/Nav.scss";
+import CandidateInfor from "../Candidates/CandidateInfor";
+import Candidates from "../Candidates/Candidates";
 import CheckCompany from "../CheckCompany/CheckCompany";
+import Companies from "../Companies/Companies";
+import CompaniesInfor from "../Companies/CompaniesInfor";
 import AddContact from "../Contact/AddContact";
 import Contact from "../Contact/Contact";
 import AddFormCv from "../FormCV/AddFormCV";
@@ -11,7 +15,7 @@ import FormCv from "../FormCV/FormCV";
 import Jobs from "../Jobs/Jobs";
 import AddNew from "../News/AddNew";
 import News from "../News/News";
-import Revenue from "../Revenue/Revenue";
+import Statistical from "../Statistical/Statistical";
 import AddSocialNetwork from "../SocialNetwork/addSocialNetwork";
 import SocialNetwork from "../SocialNetwork/SocialNetwork";
 import AddTag from "../Tag/AddTag";
@@ -24,7 +28,7 @@ export default function Nav() {
   // console.log(match);
   const { Header, Sider, Content } = Layout;
   const [state, setState] = useState({
-    collapsed: true,
+    collapsed: false,
     visible: true,
   });
   useEffect(() => {
@@ -63,7 +67,7 @@ export default function Nav() {
                 )
               }
             >
-              <Link to="/admin">Doanh thu</Link>
+              <Link to="/admin">Thống kê</Link>
             </Menu.Item>
             <Menu.Item
               key="4"
@@ -126,6 +130,30 @@ export default function Nav() {
               <Link to={`${match.url}/work`}>Công việc</Link>
             </Menu.Item>
             <Menu.Item
+              key="12"
+              icon={
+                state.collapsed === true ? (
+                  <span className="fas fa-user-graduate"></span>
+                ) : (
+                  <span className="fas fa-user-graduate mr-2"></span>
+                )
+              }
+            >
+              <Link to={`${match.url}/candidate`}>Ứng viên</Link>
+            </Menu.Item>
+            <Menu.Item
+              key="13"
+              icon={
+                state.collapsed === true ? (
+                  <span className="fas fa-building"></span>
+                ) : (
+                  <span className="fas fa-building mr-2"></span>
+                )
+              }
+            >
+              <Link to={`${match.url}/companies`}>Công ty</Link>
+            </Menu.Item>
+            <Menu.Item
               key="7"
               icon={
                 state.collapsed === true ? (
@@ -184,7 +212,7 @@ export default function Nav() {
               {
                 className: "trigger",
                 onClick: toggle,
-              }
+              },
             )}
           </Header>
           <Content
@@ -197,7 +225,7 @@ export default function Nav() {
           >
             <Switch>
               <Route exact path={match.path}>
-                <Revenue />
+                <Statistical />
               </Route>
               <Route exact path={`${match.path}/new`}>
                 <News url={match.url} />
@@ -243,6 +271,18 @@ export default function Nav() {
               </Route>
               <Route path={`${match.path}/contact/editContact/:id`}>
                 <AddContact url={match.url} />
+              </Route>
+              <Route exact path={`${match.path}/candidate`}>
+                <Candidates url={match.url} />
+              </Route>
+              <Route path={`${match.path}/candidate/infor/:id`}>
+                <CandidateInfor url={match.url} />
+              </Route>
+              <Route exact path={`${match.path}/companies`}>
+                <Companies url={match.url} />
+              </Route>
+              <Route path={`${match.path}/companies/infor/:id`}>
+                <CompaniesInfor url={match.url} />
               </Route>
               <Route path={`${match.path}/tag/addTag`}>
                 <AddTag url={match.url} />
