@@ -14,7 +14,7 @@ export default function DetailNew() {
       setNews(
         await newApi.getOne(id).then((data) => {
           return data;
-        })
+        }),
       );
     }
     window.scrollTo(0, 0);
@@ -25,7 +25,6 @@ export default function DetailNew() {
         ""
       ) : (
         <div>
-          {/* <Menu /> */}
           <Breadcrumb name={news.name} />
           <BannerNew img={news.avatar} title={news.name} tags={news.Tags} />
           <New content={news.content} />

@@ -34,11 +34,13 @@ export default function Mn(props) {
       setUser(ok.data.user);
     });
     let idClass = pathname.slice(1);
-    let ListMenu = nav_el.current.querySelectorAll(".item");
-    nav_el.current.querySelector(".item.active").classList.remove("active");
-    for (let i = 0; i < ListMenu.length; i++) {
-      if (ListMenu[i].id == idClass) {
-        ListMenu[i].classList.add("active");
+    if (nav_el.current) {
+      let ListMenu = nav_el.current.querySelectorAll(".item");
+      nav_el.current.querySelector(".item.active").classList.remove("active");
+      for (let i = 0; i < ListMenu.length; i++) {
+        if (ListMenu[i].id == idClass) {
+          ListMenu[i].classList.add("active");
+        }
       }
     }
   }, []);
