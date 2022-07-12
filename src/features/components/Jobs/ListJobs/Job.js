@@ -4,13 +4,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { workData } from "../../../admin/Slice/workSlice";
 import { Radio } from "antd";
+import { typeWorkData } from "../../../admin/Slice/typeWorkSlice";
 import { formatDateWork } from "../../../container/Functionjs";
 import "../../../scss/SearchJobs/ListJob.scss";
 import SpinLoad from "../../Spin/Spin";
 import KeyTag from "./KeyTag";
-export default function Job({ searchData, onTime, onAmout, amount, time }) {
+export default function Job({
+  searchData,
+  onTime,
+  onAmout,
+  amount,
+  time,
+  typeWorkValue,
+  onTypeWork,
+}) {
   const work = useSelector((state) => state.works.work.data);
   const loading = useSelector((state) => state.works.loading);
+  const typework = useSelector((state) => state.typeWorks.typeWork.data);
   const dispatch = useDispatch();
   const [state, setState] = useState({
     page: localStorage.getItem("pageWorkHome") || 1,
@@ -22,8 +32,9 @@ export default function Job({ searchData, onTime, onAmout, amount, time }) {
     });
   };
 
-  const actionResult = async (page) => {
-    await dispatch(workData(page));
+  const actionResult = (page) => {
+    dispatch(workData(page));
+    dispatch(typeWorkData({ status: 1 }));
   };
   useEffect(() => {
     localStorage.setItem("pageWorkHome", page);
@@ -31,6 +42,9 @@ export default function Job({ searchData, onTime, onAmout, amount, time }) {
   }, [page]);
   const onChangeTime = (e) => {
     onTime(e.target.value);
+  };
+  const onChangeTypeWork = (e) => {
+    onTypeWork(+e.target.value !== 0 ? e.target.value : "");
   };
   const onChangeAmount = (e) => {
     onAmout(e.target.value);
@@ -44,7 +58,7 @@ export default function Job({ searchData, onTime, onAmout, amount, time }) {
               loading ? (
                 <SpinLoad />
               ) : (
-                work.rows.map((data, index) => (
+                work?.rows?.map((data, index) => (
                   <div className="job__box" key={index}>
                     <div className="job__tag">hot</div>
                     <div className="job__logo">
@@ -91,8 +105,8 @@ export default function Job({ searchData, onTime, onAmout, amount, time }) {
                 ))
               )
             ) : (
-              searchData.rows.map((data) => (
-                <div className="job__box">
+              searchData?.rows?.map((data, index) => (
+                <div className="job__box" key={index}>
                   <div className="job__tag">hot</div>
                   <div className="job__logo">
                     <img src={data.Company.avatar} alt="" />
@@ -191,6 +205,27 @@ export default function Job({ searchData, onTime, onAmout, amount, time }) {
                   </Radio>
                   <br />
                   <Radio value="Part Time">Part Time</Radio>
+                </Radio.Group>
+              </div>
+            </div>
+            <div className="box__filter">
+              <div className="filter--title">
+                <p>Loại công việc</p>
+              </div>
+              <div className="filter__content">
+                <Radio.Group onChange={onChangeTypeWork} value={typeWorkValue}>
+                  <Radio className="mb-1" value="">
+                    Tất cả
+                  </Radio>
+                  <br />
+                  {typework?.rows?.map((data) => (
+                    <React.Fragment key={data.id}>
+                      <Radio className="mb-1" value={data.id}>
+                        {data.name}
+                      </Radio>
+                      <br />
+                    </React.Fragment>
+                  ))}
                 </Radio.Group>
               </div>
             </div>

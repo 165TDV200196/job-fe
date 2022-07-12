@@ -5,7 +5,6 @@ import { checkDateCompany } from "../../../container/Functionjs";
 import "../../../scss/DetailCandidate/CandidateContent.scss";
 
 export default function CandidateContent({ data }) {
-  console.log(data);
   return (
     <div className="candidateContent">
       <div className="container">
@@ -16,7 +15,11 @@ export default function CandidateContent({ data }) {
               <div className="candidate__box__skill ">
                 <div className="candidateTag d-flex">
                   {data?.Tags.length > 0 ? (
-                    data.Tags.map((ok) => <Link>{ok.name}</Link>)
+                    data.Tags.map((ok, index) => (
+                      <Link to="#" key={index}>
+                        {ok.name}
+                      </Link>
+                    ))
                   ) : (
                     <span className="text-danger">Ứng viên chưa cập nhập</span>
                   )}

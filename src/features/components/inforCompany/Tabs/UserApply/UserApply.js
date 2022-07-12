@@ -8,6 +8,7 @@ import moment from "moment";
 import sendMailApi from "../../../../../api/sendMail";
 export default function UserApply({ id }) {
   const [data, setData] = useState();
+  console.log("data", data);
   const [numReload, setNumReload] = useState(1);
   const [state, setState] = useState({
     isModalUserVisible: false,

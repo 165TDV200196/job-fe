@@ -44,7 +44,7 @@ export default function Banner() {
             />
             <Link
               to={`jobs?name=${removeVietnameseTones(
-                name
+                name,
               )}&address=${removeVietnameseTones(address)}`}
               className="btn btn-primary"
             >

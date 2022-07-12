@@ -36,7 +36,6 @@ export default function Jd(props) {
         b.push({ id: a[i].id });
       }
       setDeleteId(b);
-      // console.log(data.data.length);
       if (data.data.length === 0) {
         setNotSave(true);
       } else {

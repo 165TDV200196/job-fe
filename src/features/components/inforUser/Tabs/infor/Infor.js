@@ -129,7 +129,7 @@ export default function Infor({ id }) {
           phone: data.phone,
           introduce: content,
           id: id,
-        })
+        }),
       );
     } else if (data.anhBanner && data.anh === undefined) {
       await dispatch(
@@ -142,7 +142,7 @@ export default function Infor({ id }) {
           phone: data.phone,
           introduce: content,
           id: id,
-        })
+        }),
       );
     } else if (data.anhBanner && data.anh) {
       await dispatch(
@@ -156,7 +156,7 @@ export default function Infor({ id }) {
           phone: data.phone,
           introduce: content,
           id: id,
-        })
+        }),
       );
     } else {
       await dispatch(
@@ -168,7 +168,7 @@ export default function Infor({ id }) {
           male,
           introduce: content,
           id: id,
-        })
+        }),
       );
     }
   };
@@ -278,7 +278,7 @@ export default function Infor({ id }) {
             </label>
             <input
               type="file"
-              hidden="true"
+              hidden
               name=""
               id="img"
               onChange={hangdelimage}
@@ -308,7 +308,7 @@ export default function Infor({ id }) {
             </label>
             <input
               type="file"
-              hidden="true"
+              hidden
               name=""
               id="imgBanner"
               onChange={hangdelimageBanner}
@@ -337,7 +337,7 @@ export default function Infor({ id }) {
           </div>
           <div className="d-flex">
             <div className="form-group w-45 ">
-              <label for="">Tên ứng viên</label>
+              <label htmlFor="">Tên ứng viên</label>
               <input
                 type="text"
                 className="form-control "
@@ -348,7 +348,7 @@ export default function Infor({ id }) {
               />
             </div>
             <div className="form-group w-45">
-              <label for="">Địa chỉ</label>
+              <label htmlFor="">Địa chỉ</label>
               <input
                 type="text"
                 className="form-control"
@@ -361,7 +361,7 @@ export default function Infor({ id }) {
           </div>
           <div className="d-flex">
             <div className="form-group w-45">
-              <label for="">Giới tính</label>
+              <label htmlFor="">Giới tính</label>
               <Select
                 value={male}
                 onChange={(e) => setMale(e)}
@@ -372,7 +372,7 @@ export default function Infor({ id }) {
               </Select>
             </div>
             <div className="form-group w-45">
-              <label for="">Số điện thoại</label>
+              <label htmlFor="">Số điện thoại</label>
               <input
                 type="text"
                 className="form-control"

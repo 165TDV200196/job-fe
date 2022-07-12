@@ -127,6 +127,7 @@ export const GetCategoryHome = (e) => {
     let result = [];
     for (let i = 0; i < list.length; i++) {
       data.push({
+        id: list[i].id,
         name: list[i].name,
         icon: list[i].icon,
         length: list[i]?.Works?.length,

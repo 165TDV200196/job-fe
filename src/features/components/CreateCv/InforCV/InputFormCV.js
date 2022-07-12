@@ -20,7 +20,7 @@ function InputFormCV({
   };
   return (
     <div className="form-group">
-      <label for="">{label}</label>
+      <label htmlFor="">{label}</label>
       <input
         type={type}
         className="form-control"

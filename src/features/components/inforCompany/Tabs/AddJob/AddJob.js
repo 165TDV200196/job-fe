@@ -32,7 +32,6 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
     if (idEdit) {
       reset(
         await workApi.getOne(idEdit).then((data) => {
-          console.log("data", data);
           setState({
             ...state,
             price1: String(data.price1),

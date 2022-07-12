@@ -27,8 +27,8 @@ export default function WorkSave({ id }) {
           {!data ? (
             <SpinLoad />
           ) : (
-            data.map((ok) => (
-              <div className="col-lg-12">
+            data.map((ok, index) => (
+              <div className="col-lg-12" key={index}>
                 <div className="job__box mb-3">
                   <div className="job__tag">hot</div>
                   <div className="job__logo">

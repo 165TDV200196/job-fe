@@ -9,8 +9,8 @@ import SpinLoad from "../../Spin/Spin";
 import renderHtml from "react-render-html";
 export default function ListCategories() {
   const dispatch = useDispatch();
-  const actionResult = async () => {
-    await dispatch(typeWorkData({ status: 1 }));
+  const actionResult = () => {
+    dispatch(typeWorkData({ status: 1 }));
   };
   const typework = useSelector((state) => state.typeWorks.typeWork.data);
   const loading = useSelector((state) => state.typeWorks.loading);
@@ -33,7 +33,10 @@ export default function ListCategories() {
           ) : (
             GetCategoryHome(typework).map((ok, index) => (
               <div className="col-lg-3 col-md-4 col-sm-12 " key={index}>
-                <Link to="" className="categori__link">
+                <Link
+                  to={`jobs?typeWordId=${ok.id}`}
+                  className="categori__link"
+                >
                   <div className="categori__box">
                     <div className="categori__title">{ok.name}</div>
                     <div className="categori__icon">
