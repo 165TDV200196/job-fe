@@ -57,8 +57,8 @@ export default function Infor({ id }) {
     }
   }, []);
   const dispatch = useDispatch();
-  const actionResult = async (page) => {
-    await dispatch(companyData(page));
+  const actionResult = (page) => {
+    dispatch(companyData(page));
   };
   const edit = async (data) => {
     if (data.anh && data.anhBanner === undefined) {

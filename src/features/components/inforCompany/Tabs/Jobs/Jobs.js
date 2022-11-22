@@ -18,6 +18,7 @@ export default function Jobs({
   const [state, setState] = useState({
     page: localStorage.getItem("pageWorkHomeInfor") || 1,
   });
+
   const { page } = state;
   const [loadEffect, setLoadEffect] = useState(false);
 
@@ -26,14 +27,17 @@ export default function Jobs({
       setData(data);
     });
   };
+
   useEffect(() => {
     localStorage.setItem("pageWorkHomeInfor", page);
     getApi();
   }, [page, loadEffect, resetJob]);
+
   const hangdleDelete = async (e) => {
     await workApi.deletework(e);
     setLoadEffect(!loadEffect);
   };
+
   return (
     <div className="ListJob">
       {heard ? (

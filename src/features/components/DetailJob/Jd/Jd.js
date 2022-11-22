@@ -51,6 +51,7 @@ export default function Jd(props) {
       message.warning("Bạn chưa đăng nhập!");
     }
   };
+
   const onNotSaveWork = async () => {
     if (user) {
       for (let i = 0; i < deleteId.length; i++) {
@@ -61,6 +62,7 @@ export default function Jd(props) {
       message.warning("Bạn chưa đăng nhập!");
     }
   };
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const showModal = (e) => {

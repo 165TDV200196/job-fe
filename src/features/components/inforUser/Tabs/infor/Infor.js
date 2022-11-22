@@ -58,15 +58,18 @@ export default function Infor({ id }) {
   const actionResultTypeOfWork = async () => {
     await dispatch(typeWorkData({ status: 1 }));
   };
+
   const tags = useSelector((state) => state.tags.tag.data);
   const loadingTag = useSelector((state) => state.tags.loading);
   const typeWorks = useSelector((state) => state.typeWorks.typeWork.data);
   const loadingTypeWork = useSelector((state) => state.typeWorks.loading);
+
   const getApi = async () => {
     return await userApi.getOne(id).then((data) => {
       return data;
     });
   };
+
   const formatTag = (e) => {
     let tag = [];
     for (let i = 0; i < e.length; i++) {
@@ -74,6 +77,7 @@ export default function Infor({ id }) {
     }
     return tag;
   };
+
   const formatTypeOfWork = (e) => {
     let TypeOfWork = [];
     for (let i = 0; i < e.length; i++) {
@@ -81,6 +85,7 @@ export default function Infor({ id }) {
     }
     return TypeOfWork;
   };
+
   useEffect(() => {
     actionResultTag();
     actionResultTypeOfWork();
@@ -101,9 +106,11 @@ export default function Infor({ id }) {
       });
     }
   }, []);
-  const actionResult = async (page) => {
-    await dispatch(userData(page));
+
+  const actionResult = (page) => {
+    dispatch(userData(page));
   };
+
   const edit = async (data) => {
     const TypeOfWorks = [{ userId: id, typeofworkId: typeofworkId }];
     const UserTag = [];
@@ -119,7 +126,7 @@ export default function Infor({ id }) {
       await userTagApi.postuserTag(UserTag);
     }
     if (data.anh && data.anhBanner === undefined) {
-      await dispatch(
+      dispatch(
         updateuser({
           status: 1,
           avatar: data.anh,
@@ -132,7 +139,7 @@ export default function Infor({ id }) {
         }),
       );
     } else if (data.anhBanner && data.anh === undefined) {
-      await dispatch(
+      dispatch(
         updateuser({
           status: 1,
           banner: data.anhBanner,
@@ -145,7 +152,7 @@ export default function Infor({ id }) {
         }),
       );
     } else if (data.anhBanner && data.anh) {
-      await dispatch(
+      dispatch(
         updateuser({
           status: 1,
           avatar: data.anh,
@@ -159,7 +166,7 @@ export default function Infor({ id }) {
         }),
       );
     } else {
-      await dispatch(
+      dispatch(
         updateuser({
           status: 1,
           name: data.name,
@@ -172,9 +179,10 @@ export default function Infor({ id }) {
       );
     }
   };
+
   const history = useHistory();
+
   const onSubmit = async (data) => {
-    console.log(data);
     if (
       data.phone === "" ||
       tagId.length === 0 ||
