@@ -6,7 +6,7 @@ import "../../scss/Login/Login.scss";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import loginApi from "../../../api/loginApi";
-export default function Login({ onLogin }) {
+export default function LoginAdmin({ onLogin }) {
     const schema = yup.object().shape({
         userName: yup.string().email().required(),
         password: yup.string().min(4).max(20).required(),
@@ -21,42 +21,29 @@ export default function Login({ onLogin }) {
     const history = useHistory();
     const onSumit = async (data) => {
         await loginApi
-            .loginCompany({
+            .loginAdmin({
                 email: data.userName,
                 password: data.password,
                 status: 1,
             })
             .then((ok) => {
-                if (ok === "err") {
-                    loginApi
-                        .loginUser({
-                            email: data.userName,
-                            password: data.password,
-                            status: 1,
-                        })
-                        .then((ok) => {
-                            if (ok === "err") {
-                                message.error("Sai tên đăng nhập hoặc mật khẩu!");
-                            } else {
-                                localStorage.setItem("token", ok);
-                                message.success("Đăng nhập thành công!");
-                                onLogin();
-                                history.push("/");
-                            }
-                        });
-                } else {
+                if (ok !== "err") {
                     localStorage.setItem("token", ok);
                     message.success("Đăng nhập thành công!");
                     onLogin();
-                    history.push("/");
+                    history.push("/admin");
+                } else {
+                    message.error("Sai tên đăng nhập hoặc mật khẩu!");
                 }
             });
     };
     return (
         <div className="login">
-            <div className="login__title">Việc làm tốt</div>
-            <div className="login__box">
-                <div className="line__login"></div>
+            <div className="login__title">Đăng nhập trang quản trị</div>
+            <div className="login__box" style={{
+                justifyContent: "center"
+            }}>
+                {/* <div className="line__login"></div> */}
                 <div className="login__box__left">
                     <form onSubmit={handleSubmit(onSumit)}>
                         <div className="login__box__left__title">Tài khoản</div>
@@ -81,7 +68,7 @@ export default function Login({ onLogin }) {
                         </div>
                     </form>
                 </div>
-                <div className="login__box__right">
+                {/* <div className="login__box__right">
                     <div className="right">
                         <div className="login__box__right__text">Hoặc đăng nhập với</div>
                         <button className="fb">Đăng nhập với facebook</button>
@@ -90,7 +77,7 @@ export default function Login({ onLogin }) {
                             Chưa có tài khoản? <Link to="/register">Đăng ký</Link> ở đây
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );

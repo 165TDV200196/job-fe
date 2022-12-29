@@ -29,6 +29,7 @@ import checkLoginApi from "./api/checkLogin";
 import Empty from "./features/components/Empty/Empty";
 import Menu from "./features/components/Home/Menu/Menu";
 import CheckMenu from "./features/components/CheckMenu/CheckMenu";
+import LoginAdmin from "./features/components/Login/LoginAdmin";
 function App() {
     useEffect(() => {
         checkBar();
@@ -65,7 +66,7 @@ function App() {
         <div>
             <Router>
                 <Switch>
-                    <Route path={["/admin", "/register", "/Login", "/"]}>
+                    <Route path={["/admin", "/register", "/Login", "/loginAdmin", "/",]}>
                         <CheckMenu />
                     </Route>
                 </Switch>
@@ -102,6 +103,9 @@ function App() {
                     <Route exact path="/login">
                         <Login onLogin={handleLogin} />
                     </Route>
+                    <Route exact path="/loginAdmin">
+                        <LoginAdmin onLogin={handleLogin} />
+                    </Route>
                     <Route exact path="/register">
                         <Register />
                     </Route>
@@ -111,16 +115,12 @@ function App() {
                     <Route exact path="/inforUser">
                         <InforUser />
                     </Route>
-                    {/* <Route exact path="/createCv">
-            <CreateCv />
-          </Route> */}
                     <Route exact path="/detaiFormCV/:id">
                         <DetailFormCV />
                     </Route>
-                    <Route exact path="/inforCV">
+                    {/* <Route exact path="/inforCV">
                         <InforCV />
-                    </Route>
-
+                    </Route> */}
                 </Switch>
             </Router>
         </div>

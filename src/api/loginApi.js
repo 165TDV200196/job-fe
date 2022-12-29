@@ -10,6 +10,10 @@ class LoginApi {
         const url = '/loginUser';
         return axiosClient.post(url, params);
     };
+    loginAdmin = (params) => {
+        const url = '/loginAdmin';
+        return axiosClient.post(url, params);
+    };
 }
 const loginApi = new LoginApi();
 export default loginApi;
