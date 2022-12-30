@@ -45,7 +45,6 @@ function App() {
     useEffect(() => {
         checkLoginApi.checkLogin().then((ok) => {
             let user = ok.data.user.role;
-            console.log("ddddd");
             if (user === "admin" || user === "grant") {
                 setCheckAdmin(
                     <Route path="/admin">
@@ -66,7 +65,7 @@ function App() {
         <div>
             <Router>
                 <Switch>
-                    <Route path={["/admin", "/register", "/Login", "/loginAdmin", "/",]}>
+                    <Route path={["/admin", "/register", "/Login", "/checkadmin", "/loginAdmin", "/",]}>
                         <CheckMenu />
                     </Route>
                 </Switch>
@@ -87,6 +86,9 @@ function App() {
                     </Route>
                     <Route exact path="/jobs/work/:id">
                         <DetailJob />
+                    </Route>
+                    <Route exact path="/checkadmin/jobs/work/:id">
+                        <DetailJob isAdmin />
                     </Route>
                     <Route exact path="/companys">
                         <Company />

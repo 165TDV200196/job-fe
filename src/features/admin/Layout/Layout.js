@@ -23,6 +23,7 @@ import Tag from "../Tag/Tag";
 import AddTypeWork from "../TypeWork/AddTypeWork";
 import TypeWork from "../TypeWork/TypeWork";
 import User from "../User/User";
+import CheckJob from "../CheckJob/CheckJob";
 export default function Nav() {
     const match = useRouteMatch();
     const history = useHistory();
@@ -88,6 +89,18 @@ export default function Nav() {
                             }
                         >
                             <Link to={`${match.url}/checkCompany`}>Kiểm tra tài khoản</Link>
+                        </Menu.Item>
+                        <Menu.Item
+                            key="50"
+                            icon={
+                                state.collapsed === true ? (
+                                    <span className="fas fa-check"></span>
+                                ) : (
+                                    <span className="fas fa-check mr-2"></span>
+                                )
+                            }
+                        >
+                            <Link to={`${match.url}/checkJobs`}>Duyệt công việc</Link>
                         </Menu.Item>
                         <Menu.Item
                             key="3"
@@ -201,9 +214,9 @@ export default function Nav() {
                             key="11"
                             icon={
                                 state.collapsed === true ? (
-                                    <span className="fab fa-twitter"></span>
+                                    <span className="fas fa-sign-out-alt"></span>
                                 ) : (
-                                    <span className="fab fa-twitter mr-2"></span>
+                                    <span className="fas fa-sign-out-alt mr-2"></span>
                                 )
                             }
                         >
@@ -259,6 +272,9 @@ export default function Nav() {
                             </Route>
                             <Route exact path={`${match.path}/checkCompany`}>
                                 <CheckCompany url={match.url} />
+                            </Route>
+                            <Route exact path={`${match.path}/checkJobs`}>
+                                <CheckJob url={match.url} />
                             </Route>
                             <Route path={`${match.path}/formCV/addFormCV`}>
                                 <AddFormCv url={match.url} />

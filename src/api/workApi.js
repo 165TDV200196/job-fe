@@ -6,6 +6,10 @@ class WorkApi {
         const url = '/works';
         return axiosClient.get(url, { params });
     };
+    getAllCensorship = (params) => {
+        const url = '/works/Censorship';
+        return axiosClient.get(url, { params });
+    };
     search = (params) => {
         const url = '/searchWorks';
         return axiosClient.get(url, { params });

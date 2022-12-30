@@ -9,18 +9,20 @@ import userReducer from "../features/admin/Slice/userSlice"
 import formCVReducer from "../features/admin/Slice/formCVSlice"
 import contactReducer from "../features/admin/Slice/contactSlice"
 import socialNetworkReducer from "../features/admin/Slice/socialNetworkSlice"
+import worksCensorshipReducer from "../features/admin/Slice/workCensorshipSlice"
 const rootReducer = {
-  tags: tagReducer,
-  news: newReducer,
-  works: workReducer,
-  companys: companyReducer,
-  checkCompanys: checkCompanyReducer,
-  users: userReducer,
-  typeWorks: typeWorkReducer,
-  formCVs: formCVReducer,
-  contacts: contactReducer,
-  socialNetworks: socialNetworkReducer,
+    tags: tagReducer,
+    news: newReducer,
+    works: workReducer,
+    companys: companyReducer,
+    checkCompanys: checkCompanyReducer,
+    users: userReducer,
+    typeWorks: typeWorkReducer,
+    formCVs: formCVReducer,
+    contacts: contactReducer,
+    socialNetworks: socialNetworkReducer,
+    worksCensorship: worksCensorshipReducer,
 }
 export default configureStore({
-  reducer: rootReducer
+    reducer: rootReducer
 });

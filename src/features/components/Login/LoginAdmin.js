@@ -28,7 +28,7 @@ export default function LoginAdmin({ onLogin }) {
             })
             .then((ok) => {
                 if (ok !== "err") {
-                    localStorage.setItem("token", ok);
+                    localStorage.setItem("token-admin", ok);
                     message.success("Đăng nhập thành công!");
                     onLogin();
                     history.push("/admin");
