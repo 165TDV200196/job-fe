@@ -78,9 +78,6 @@ function App() {
                     <Route exact path="/jobs">
                         <Jobs />
                     </Route>
-                    <Route exact path="/news">
-                        <ListNews />
-                    </Route>
                     <Route exact path="/news/detailNew/:id">
                         <DetailNew />
                     </Route>

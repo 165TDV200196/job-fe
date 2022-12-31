@@ -38,6 +38,15 @@ export default function Jobs({
         setLoadEffect(!loadEffect);
     };
 
+    const checkStatusCensorship = (status) => {
+        let obj = {
+            1: "Đã duyệt",
+            null: "Chờ duyệt",
+            0: "Từ chối",
+        }
+        return obj[status]
+    }
+
     return (
         <div className="ListJob">
             {heard ? (
@@ -59,6 +68,7 @@ export default function Jobs({
                         data.data.rows.map((ok, index) => (
                             <div className="col-lg-12" key={index}>
                                 <div className="job__box mb-3">
+                                    <div className="btn-status-job">{checkStatusCensorship(ok.censorship)}</div>
                                     {hident ? (
                                         ""
                                     ) : (

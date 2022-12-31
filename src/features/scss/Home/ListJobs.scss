@@ -20,7 +20,8 @@
                 height: 100%;
             }
         }
-        .btn-delete-job {
+        .btn-delete-job,
+        .btn-status-job {
             padding: 0.5rem 1rem;
             border: 1px solid $bgButtonApplyHover;
             background-color: white;
@@ -36,6 +37,15 @@
                 background-color: $bgButtonApplyHover;
                 border: 1px solid $bgButtonApplyHover;
                 color: white;
+            }
+        }
+        .btn-status-job {
+            top: 29% !important;
+            cursor: unset;
+            &:hover {
+                border: 1px solid $bgButtonApplyHover;
+                background-color: white;
+                color: $bgButtonApplyHover;
             }
         }
         .btn-edit-job {

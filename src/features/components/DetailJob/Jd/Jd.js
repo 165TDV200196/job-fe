@@ -157,7 +157,7 @@ export default function Jd(props) {
                                     }
                                 </div>
                             </div>
-                            {!isAdmin &&
+                            {!isAdmin && user &&
                                 <div
                                     className="apply"
                                     onClick={() => showModal(checkDateDealtime(data.dealtime))}
@@ -260,17 +260,19 @@ export default function Jd(props) {
                                 <i className="far fa-clock"></i>
                             </div>
                         </div>
-                        <div
-                            className="save__box"
-                            onClick={notSave ? onSaveWork : onNotSaveWork}
-                        >
-                            <div className="save__box__title">
-                                {notSave ? "Lưu công việc" : "Huỷ lưu công việc"}
+                        {user &&
+                            <div
+                                className="save__box"
+                                onClick={notSave ? onSaveWork : onNotSaveWork}
+                            >
+                                <div className="save__box__title">
+                                    {notSave ? "Lưu công việc" : "Huỷ lưu công việc"}
+                                </div>
                             </div>
-                        </div>
-                        <div className="advertisement">
+                        }
+                        {/* <div className="advertisement">
                             <img src={qc} alt="" />
-                        </div>
+                        </div> */}
                         <div className="box__keyTag">
                             <KeyTag />
                         </div>

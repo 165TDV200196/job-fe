@@ -102,18 +102,7 @@ export default function Nav() {
                         >
                             <Link to={`${match.url}/checkJobs`}>Duyệt công việc</Link>
                         </Menu.Item>
-                        <Menu.Item
-                            key="3"
-                            icon={
-                                state.collapsed === true ? (
-                                    <span className="far fa-newspaper"></span>
-                                ) : (
-                                    <span className="far fa-newspaper mr-2"></span>
-                                )
-                            }
-                        >
-                            <Link to={`${match.url}/new`}>Tin tức</Link>
-                        </Menu.Item>
+
                         <Menu.Item
                             key="2"
                             icon={
@@ -249,9 +238,7 @@ export default function Nav() {
                             <Route exact path={match.path}>
                                 <Statistical />
                             </Route>
-                            <Route exact path={`${match.path}/new`}>
-                                <News url={match.url} />
-                            </Route>
+
                             <Route exact path={`${match.path}/tag`}>
                                 <Tag url={match.url} />
                             </Route>
@@ -318,12 +305,7 @@ export default function Nav() {
                             <Route path={`${match.path}/typeWork/editTypeWork/:id`}>
                                 <AddTypeWork url={match.url} />
                             </Route>
-                            <Route path={`${match.path}/new/editNew/:id`}>
-                                <AddNew url={match.url} />
-                            </Route>
-                            <Route path={`${match.path}/new/addNew`}>
-                                <AddNew url={match.url} />
-                            </Route>
+
                         </Switch>
                     </Content>
                 </Layout>
