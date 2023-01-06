@@ -1,35 +1,30 @@
+import "antd/dist/antd.css";
 import React, { useEffect, useState } from "react";
 import {
     BrowserRouter as Router,
     Route,
     Switch,
-    useRouteMatch,
+    useRouteMatch
 } from "react-router-dom";
+import checkLoginApi from "./api/checkLogin";
 import "./App.scss";
-import Home from "./features/components/Home/Home";
-import Jobs from "./features/components/Jobs/Jobs";
-import { checkBar } from "./features/container/Functionjs";
-import "antd/dist/antd.css";
-import DetailJob from "./features/components/DetailJob/DetailJob";
-import ListNews from "./features/components/ListNews/ListNews";
-import DetailNew from "./features/components/DetailNew/DetailNew";
-import Company from "./features/components/company/Company";
-import DetailCompany from "./features/components/DetailCompany/DetailCompany";
-import Candidates from "./features/components/Candidates/Candidates";
-import DetailCandidate from "./features/components/DetailCandidate/DetailCandidate";
-import Login from "./features/components/Login/Login";
 import Admin from "./app/Admin";
-import Register from "./features/components/Register/Register";
+import Candidates from "./features/components/Candidates/Candidates";
+import CheckMenu from "./features/components/CheckMenu/CheckMenu";
+import Company from "./features/components/company/Company";
+import DetailFormCV from "./features/components/DetaiFormCV/DetaiFormCV";
+import DetailCandidate from "./features/components/DetailCandidate/DetailCandidate";
+import DetailCompany from "./features/components/DetailCompany/DetailCompany";
+import DetailJob from "./features/components/DetailJob/DetailJob";
+import Empty from "./features/components/Empty/Empty";
+import Home from "./features/components/Home/Home";
 import InforCompany from "./features/components/inforCompany/InforCompany";
 import InforUser from "./features/components/inforUser/InforUser";
-import CreateCv from "./features/components/CreateCv/CreateCv";
-import DetailFormCV from "./features/components/DetaiFormCV/DetaiFormCV";
-import InforCV from "./features/components/CreateCv/InforCV/InforCV";
-import checkLoginApi from "./api/checkLogin";
-import Empty from "./features/components/Empty/Empty";
-import Menu from "./features/components/Home/Menu/Menu";
-import CheckMenu from "./features/components/CheckMenu/CheckMenu";
+import Jobs from "./features/components/Jobs/Jobs";
+import Login from "./features/components/Login/Login";
 import LoginAdmin from "./features/components/Login/LoginAdmin";
+import Register from "./features/components/Register/Register";
+import { checkBar } from "./features/container/Functionjs";
 function App() {
     useEffect(() => {
         checkBar();
@@ -77,9 +72,6 @@ function App() {
                     {checkAdmin}
                     <Route exact path="/jobs">
                         <Jobs />
-                    </Route>
-                    <Route exact path="/news/detailNew/:id">
-                        <DetailNew />
                     </Route>
                     <Route exact path="/jobs/work/:id">
                         <DetailJob />

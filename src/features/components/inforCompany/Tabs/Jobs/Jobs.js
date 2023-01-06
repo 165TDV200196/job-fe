@@ -13,6 +13,7 @@ export default function Jobs({
     onChangeTabs,
     onIdEdit,
     resetJob,
+    statusJobs = true
 }) {
     const [data, setData] = useState();
     const [state, setState] = useState({
@@ -68,7 +69,7 @@ export default function Jobs({
                         data.data.rows.map((ok, index) => (
                             <div className="col-lg-12" key={index}>
                                 <div className="job__box mb-3">
-                                    <div className="btn-status-job">{checkStatusCensorship(ok.censorship)}</div>
+                                    {statusJobs && <div className="btn-status-job">{checkStatusCensorship(ok.censorship)}</div>}
                                     {hident ? (
                                         ""
                                     ) : (

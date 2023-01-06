@@ -13,8 +13,6 @@ import Contact from "../Contact/Contact";
 import AddFormCv from "../FormCV/AddFormCV";
 import FormCv from "../FormCV/FormCV";
 import Jobs from "../Jobs/Jobs";
-import AddNew from "../News/AddNew";
-import News from "../News/News";
 import Statistical from "../Statistical/Statistical";
 import AddSocialNetwork from "../SocialNetwork/addSocialNetwork";
 import SocialNetwork from "../SocialNetwork/SocialNetwork";
