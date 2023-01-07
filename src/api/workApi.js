@@ -18,6 +18,10 @@ class WorkApi {
         const url = '/workId';
         return axiosClient.get(url, { params });
     };
+    getAllRejectId = (params) => {
+        const url = '/workId/reject';
+        return axiosClient.get(url, { params });
+    };
     getOne = (params) => {
         const url = `/works/${params}`;
         return axiosClient.get(url).then(data => {

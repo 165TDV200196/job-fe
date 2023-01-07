@@ -5,6 +5,7 @@ import { Tabs } from 'antd';
 import UserApply from './UserApply/UserApply';
 import Infor from "./infor/Infor"
 import WorkSave from './WorkSave/WorkSave';
+import ChangePassword from './ChangePassword/ChangePassword';
 export default function Tab({ id }) {
     const { TabPane } = Tabs;
     return (
@@ -21,6 +22,9 @@ export default function Tab({ id }) {
                 </TabPane>
                 <TabPane tab="Thông tin cá nhân" key="4">
                     <Infor id={id} />
+                </TabPane>
+                <TabPane tab="Đổi mật khẩu" key="5">
+                    <ChangePassword id={id} />
                 </TabPane>
             </Tabs>
         </div>
