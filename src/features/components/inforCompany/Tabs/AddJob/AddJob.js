@@ -363,10 +363,12 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
                                 <DatePicker
                                     onChange={onChangeDate}
                                     className="form-control input-ant"
-                                    value={moment(date ?? new Date(), "YYYY-MM-DD")}
+                                    value={moment(date ? date : new Date(), "YYYY-MM-DD")}
                                 />
                             </Space>
-                            {console.log("date", moment(date ?? new Date(), "YYYY-MM-DD"))}
+                            {console.log('new Date()', new Date())}
+                            {console.log('date', date ? date : new Date())}
+                            {console.log("date", moment(date ? date : new Date(), "YYYY-MM-DD"))}
                         </div>
                         <div className="form-group w-45">
                             <label htmlFor="">Tags liên quan</label>

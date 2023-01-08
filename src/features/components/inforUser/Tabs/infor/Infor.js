@@ -135,7 +135,6 @@ export default function Infor({ id }) {
                     male,
                     phone: data.phone,
                     email: data.email,
-                    password: data.newPassword,
                     introduce: content,
                     id: id,
                 }),
@@ -150,7 +149,6 @@ export default function Infor({ id }) {
                     male,
                     phone: data.phone,
                     email: data.email,
-                    password: data.newPassword,
                     introduce: content,
                     id: id,
                 }),
@@ -166,7 +164,6 @@ export default function Infor({ id }) {
                     address: data.address,
                     phone: data.phone,
                     email: data.email,
-                    password: data.newPassword,
                     introduce: content,
                     id: id,
                 }),
@@ -180,7 +177,6 @@ export default function Infor({ id }) {
                     phone: data.phone,
                     male,
                     email: data.email,
-                    password: data.newPassword,
                     introduce: content,
                     id: id,
                 }),
@@ -196,7 +192,6 @@ export default function Infor({ id }) {
             tagId.length === 0 ||
             typeofworkId.length === 0 ||
             data.email === "" ||
-            data.newPassword === "" ||
             content === ""
         ) {
             message.warning("Bạn cần nhập đầy đủ thông tin!");
@@ -403,7 +398,7 @@ export default function Infor({ id }) {
                     </div>
                     <div className="d-flex">
                         <div className="form-group w-45">
-                            <label htmlFor="">Tag liên quan</label>
+                            <label htmlFor="">Kỹ năng hiện có</label>
                             {loadingTag ? (
                                 <SpinLoad />
                             ) : (
@@ -447,17 +442,7 @@ export default function Infor({ id }) {
                                 placeholder=""
                             />
                         </div>
-                        <div className="form-group w-45">
-                            <label htmlFor="">Mật khẩu</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                {...register("newPassword")}
-                                id=""
-                                aria-describedby="helpId"
-                                placeholder=""
-                            />
-                        </div>
+
                     </div>
                     <div className="form-group">
                         <label htmlFor="">Giới thiệu bản thân</label>

@@ -73,6 +73,21 @@ export default function ContentCompany({ data }) {
                                     </div>
                                 </div>
                             </div>
+                            <div className="company__box__detail">
+                                <div className="company__box__detail__icon">
+                                    <i className="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <div className="company__box__detail__title">Website công ty</div>
+                                    <div className="company__box__detail__content">
+                                        {data.website ? (
+                                            data.website
+                                        ) : (
+                                            <span className="text-danger">Chưa cập nhật</span>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div className="company__box">
                             <div className="company__box__title">Liên hệ ngay</div>
