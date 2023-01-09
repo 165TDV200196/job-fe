@@ -37,7 +37,7 @@ export default function Footer() {
                             </div>
                             <div className="footer__content">
                                 <div className="about">
-                                    <span>{ok.description}</span>
+                                    <span>{ok?.description}</span>
                                 </div>
                             </div>
                         </div>
@@ -126,18 +126,18 @@ export default function Footer() {
                                 ) : (
                                     mxh.rows.map((ok) => (
                                         <div
-                                            key={ok.id}
-                                            title={ok.name}
-                                            onClick={() => chuyentrang(ok.link)}
+                                            key={ok?.id}
+                                            title={ok?.name}
+                                            onClick={() => chuyentrang(ok?.link)}
                                         >
                                             <div
                                                 className="icon_footer"
                                                 style={{
-                                                    background: `${ok.color}`,
+                                                    background: `${ok?.color}`,
                                                     cursor: "pointer",
                                                 }}
                                             >
-                                                <i className={`${ok.icon}`}></i>
+                                                <i className={`${ok?.icon}`}></i>
                                             </div>
                                         </div>
                                     ))
