@@ -84,7 +84,7 @@ export default function JobsReject({
                                             >
                                                 <div className="btn-delete-job">Xoá Công việc</div>
                                             </Popconfirm>
-                                            <Popconfirm
+                                            {/* <Popconfirm
                                                 title="Bạn có muốn sửa?"
                                                 onConfirm={() => {
                                                     onChangeTabs("2");
@@ -95,7 +95,7 @@ export default function JobsReject({
                                                 }
                                             >
                                                 <div className="btn-edit-job">Sửa Công việc</div>
-                                            </Popconfirm>
+                                            </Popconfirm> */}
                                         </>
                                     )}
                                     <div className="job__tag">hot</div>

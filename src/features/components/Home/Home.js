@@ -13,7 +13,7 @@ export default function Home() {
             {/* <Menu /> */}
             <Banner />
             <ListCategories />
-            <CvHome />
+            {/* <CvHome /> */}
             <ListJobs />
             <Contact />
             {/* <ListNew /> */}

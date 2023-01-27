@@ -31,31 +31,19 @@ export default function Statistical() {
                         <div className="box_title">Công việc đã đăng</div>
                         <div className="box_number">{data?.numWork}</div>
                     </div>
+                </div>
+                <div className="layout_two">
+                    <div className="box_long">
+                        <div className="box_title">Loại công việc hiện có</div>
+                        <div className="box_number">{data?.numTypeOfWork}</div>
+                    </div>
                     <div className="box">
                         <div className="box_title">Công việc đang bật</div>
                         <div className="box_number">{data?.numWorkActive}</div>
                     </div>
                     <div className="box">
                         <div className="box_title">Công việc đang ẩn</div>
-                        <div className="box_number red">{data?.numWorkUnActive}</div>
-                    </div>
-                </div>
-                <div className="layout_two">
-                    {/* <div className="box_long">
-            <div className="box_title">Tin tức đã đăng</div>
-            <div className="box_number">{data?.numNew}</div>
-          </div> */}
-                    {/* <div className="box">
-                        <div className="box_title">Tin đang bật</div>
-                        <div className="box_number">{data?.numNewActive}</div>
-                    </div>
-                    <div className="box">
-                        <div className="box_title">Tin đang ẩn</div>
-                        <div className="box_number red">{data?.numNewUnActive}</div>
-                    </div> */}
-                    <div className="box_long">
-                        <div className="box_title">Loại công việc hiện có</div>
-                        <div className="box_number">{data?.numTypeOfWork}</div>
+                        <div className="box_number ">{data?.numWorkUnActive}</div>
                     </div>
                 </div>
             </div>

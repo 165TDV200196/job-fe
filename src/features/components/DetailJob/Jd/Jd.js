@@ -23,10 +23,20 @@ export default function Jd(props) {
     const [messager, setMessager] = useState("");
     const [state, setState] = useState({ tenFile: "", file: "" });
     const { tenFile, file } = state;
+    const [isShowApply, setIsShowApply] = useState(false);
+
     useEffect(() => {
         checkLoginApi.checkLogin().then((ok) => {
             if (ok.data.user.type === "user") {
                 setUser(ok.data.user.id);
+                workApplyApi.checkUserApply(ok.data.user.id).then(ok => {
+                    if (ok) {
+                        let checkUserApply = ok.workapply.findIndex(x => x.name === data.name)
+                        if (checkUserApply < 0) {
+                            setIsShowApply(true)
+                        }
+                    }
+                })
             }
         });
         saveWorkApi.getAll({ userId: user, workId: id }).then((data) => {
@@ -65,6 +75,7 @@ export default function Jd(props) {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
+
     const showModal = (e) => {
         if (e === "Đã hết hạn") {
             message.warning("Công việc đã hết hạn ứng tuyển!");
@@ -76,6 +87,7 @@ export default function Jd(props) {
             }
         }
     };
+
     const hangdelFile = (e) => {
         setState({
             ...state,
@@ -83,17 +95,30 @@ export default function Jd(props) {
             file: e.target.files[0],
         });
     };
+
     const handleOk = async () => {
         if (messager === "" || tenFile === "") {
+
             message.warning("Bạn cần nhập lời nhắn và CV đính kèm!");
         } else {
             setConfirmLoading(true);
 
             await storage.ref(`fileCv/${file.name}`).put(file);
             const file1 = await storage.ref("fileCv").child(tenFile).getDownloadURL();
-            await workApplyApi.postworkApply([
-                { userId: user, workId: id, message: messager, link: file1, status: 0 },
-            ]);
+            if (getStatusActive(data.WorkApplies) == "empty") {
+                await workApplyApi.postworkApply([
+                    { userId: user, workId: +id, message: messager, link: file1, status: 0, statusActive: null },
+                ]).then(ok => {
+                    props.reload()
+                })
+            } else {
+                let index = data.WorkApplies.findIndex(b => b.userId == user)
+                await workApplyApi.editworkApply(
+                    { id: data.WorkApplies[index].id, userId: user, workId: +id, message: messager, link: file1, statusActive: null },
+                ).then(ok => {
+                    props.reload()
+                })
+            }
             setIsModalVisible(false);
             setConfirmLoading(false);
         }
@@ -102,6 +127,65 @@ export default function Jd(props) {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+
+    const getStatusActive = (data) => {
+        if (data.length) {
+            let index = data.findIndex(x => x.userId == user)
+            if (index >= 0) {
+                return data[index].statusActive
+            }
+            return null
+        }
+        return "empty"
+    }
+
+    const renderButtonApply = () => {
+        if (!isAdmin && user) {
+            if (getStatusActive(data.WorkApplies) == 1) {
+                return (<div
+                    className="apply "
+                >
+                    <Link to="#" className="green">Phỏng vấn</Link>
+                </div>)
+            } else if (getStatusActive(data.WorkApplies) == 2) {
+                return (<div
+                    className="apply "
+                >
+                    <Link to="#" className="green">Được nhận</Link>
+                </div>)
+
+            } else if (getStatusActive(data.WorkApplies) == 3) {
+                return (
+                    <div className="apply d-flex">
+                        <div style={{ marginRight: 20 }}>
+                            <Link to="#" className="red">Từ chối</Link>
+                        </div>
+                        <div
+                            onClick={() => showModal(checkDateDealtime(data.dealtime))}
+                        >
+                            <Link to="#">Ứng tuyển lại</Link>
+                        </div>
+                    </div>
+                )
+            } else {
+                if (isShowApply) {
+                    return (<div
+                        className="apply"
+                        onClick={() => showModal(checkDateDealtime(data.dealtime))}
+                    >
+                        <Link to="#">Ứng tuyển ngay</Link>
+                    </div>)
+                } else {
+                    return (<div
+                        className="apply"
+                    >
+                        <Link to="#">Đã nộp đơn ứng tuyển</Link>
+                    </div>)
+                }
+            }
+        }
+    }
+
     return (
         <div className="Jd">
             <Modal
@@ -157,14 +241,7 @@ export default function Jd(props) {
                                     }
                                 </div>
                             </div>
-                            {!isAdmin && user &&
-                                <div
-                                    className="apply"
-                                    onClick={() => showModal(checkDateDealtime(data.dealtime))}
-                                >
-                                    <Link to="#">Ứng tuyển ngay</Link>
-                                </div>
-                            }
+                            {renderButtonApply()}
                         </div>
                         <div className="job__box">
                             <div>

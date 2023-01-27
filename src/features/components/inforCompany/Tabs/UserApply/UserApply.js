@@ -8,7 +8,7 @@ import moment from "moment";
 import sendMailApi from "../../../../../api/sendMail";
 export default function UserApply({ id }) {
     const [data, setData] = useState();
-    console.log("data", data);
+    const [isLoad, setIsLoad] = useState(false);
     const [numReload, setNumReload] = useState(1);
     const [state, setState] = useState({
         isModalUserVisible: false,
@@ -31,7 +31,8 @@ export default function UserApply({ id }) {
     } = state;
 
     const getApi = async () => {
-        await workApplyApi.checkWorkApply(id).then((data) => {
+        await workApplyApi.checkWorkApply({ id, userId }).then((data) => {
+            console.log('data.Works', data.Works)
             setData(data.Works);
         });
     };
@@ -41,14 +42,25 @@ export default function UserApply({ id }) {
         sendMailApi.Send({
             email,
             textSendMail,
-            // sechedule: moment(date).format("DD/MM/YYYY"),
         });
-        // workApplyApi
-        //     .editworkApply({ userId, workId })
-        //     .then((data) => {
-        //         setNumReload((prev) => prev + 1);
-        //     });
+
     };
+
+    const handleAccept = (userId, workId) => {
+        workApplyApi
+            .editworkApply({ userId, workId, statusActive: 1 })
+            .then((data) => {
+                setIsLoad(!isLoad)
+            });
+    }
+
+    const handleAcceptOK = (userId, workId) => {
+        workApplyApi
+            .editworkApply({ userId, workId, statusActive: 2 })
+            .then((data) => {
+                setIsLoad(!isLoad)
+            });
+    }
 
     const handleCancel = () => {
         setState({ ...state, isModalUserVisible: false });
@@ -65,15 +77,6 @@ export default function UserApply({ id }) {
         });
     };
 
-    const onChangeDate = (date, dateString) => {
-        if (dateString) {
-            setState({
-                ...state,
-                date: dateString,
-            });
-        }
-    };
-
     const handleOnchaneTextSendMail = (e) => {
         const { value } = e.target;
         setState({
@@ -84,7 +87,7 @@ export default function UserApply({ id }) {
 
     useEffect(() => {
         getApi();
-    }, [numReload]);
+    }, [numReload, isLoad]);
 
     let styleTextarea = {
         width: "100%",
@@ -92,6 +95,39 @@ export default function UserApply({ id }) {
         borderRadius: "6px",
         padding: "10px 20px",
     };
+
+    const handleClickWork = (id) => {
+        let el = document.getElementById(id);
+        let ko = el.querySelector(".d-flex.h-0")
+        if (ko) {
+            el.querySelector(".d-flex.h-0").classList.remove("h-0")
+        } else {
+            el.getElementsByClassName("d-flex")[0]?.classList.add("h-0");
+        }
+    }
+
+    const handleRejectUser = (userId, workId) => {
+        workApplyApi
+            .editworkApply({ userId, workId, statusActive: 3 })
+            .then((data) => {
+                setIsLoad(!isLoad)
+            });
+    }
+
+    const clearWorksReject = (data) => {
+        return data.filter(item => item.WorkApplies.statusActive != 3)
+    }
+
+    const getTitle = (statusActive) => {
+        if (statusActive == null) {
+            return "Mới Ứng Tuyển";
+        } else if (statusActive == 1) {
+            return "Chờ Phỏng Vấn";
+        } else if (statusActive == 2) {
+            return "Đã Nhận Ứng Viên";
+        }
+    }
+
     return (
         <div className="userApply">
             <div className="heading">
@@ -106,21 +142,24 @@ export default function UserApply({ id }) {
                     <SpinLoad />
                 ) : (
                     data.map((ok, index) => (
-                        <div className="content___box" key={index}>
-                            <div className="content___box--title">
-                                <Link to={`jobs/work/${ok.id}`} className="text-dark">
+                        <div className="content___box" key={index} id={"gg" + index}>
+                            <div className="content___box--title" onClick={() => handleClickWork("gg" + index)}>
+                                <Link
+                                    to="#"
+                                    className="text-dark">
                                     {ok.name}
                                 </Link>
                             </div>
                             <div className="hr"></div>
                             <div className="content___box---user">
                                 <div className="row">
-                                    {ok.workapply2.length === 0 ? (
+                                    {clearWorksReject(ok.workapply2).length === 0 ? (
                                         <p className="text-danger">Chưa có ứng viên ứng tuyển</p>
                                     ) : (
-                                        ok.workapply2.map((oki, index) => (
-                                            <div className="col-md-12" key={index}>
-                                                <div className="d-flex">
+                                        clearWorksReject(ok.workapply2).map((oki, index) => (
+                                            <div className="col-md-12" key={index} >
+                                                <p className="text-danger">Có {clearWorksReject(ok.workapply2).length} ứng viên</p>
+                                                <div className="d-flex h-0" id="ok" style={{ transition: ".5s" }}>
                                                     <div className="content___box---user---img">
                                                         <img
                                                             src={oki.avatar}
@@ -168,7 +207,16 @@ export default function UserApply({ id }) {
                                                             </tbody>
                                                         </table>
                                                         <div className="btn-userApply">
-                                                            {oki.WorkApplies.link && (
+                                                            <div className="text"
+                                                                style={{
+                                                                    position: "absolute",
+                                                                    left: "50%",
+                                                                    top: -40,
+                                                                    fontSize: 18,
+                                                                    transform: "translateX(-50%)"
+                                                                }}
+                                                            >{getTitle(oki.WorkApplies.statusActive)}</div>
+                                                            {oki.WorkApplies.link && oki.WorkApplies.statusActive != 2 && (
                                                                 <button
                                                                     className="btn-link"
                                                                     onClick={() => {
@@ -178,21 +226,47 @@ export default function UserApply({ id }) {
                                                                     Xem CV
                                                                 </button>
                                                             )}
-                                                            {/* {!oki.WorkApplies.sechedule && ( */}
-                                                            <button
-                                                                className="btn-link"
-                                                                onClick={() =>
-                                                                    handleClickContact(
-                                                                        oki.name,
-                                                                        oki.email,
-                                                                        oki.id,
-                                                                        ok.id,
-                                                                    )
-                                                                }
-                                                            >
-                                                                Liên hệ ngay
-                                                            </button>
-                                                            {/* // )} */}
+                                                            {oki.WorkApplies.statusActive != 2
+                                                                &&
+                                                                <>
+                                                                    <button
+                                                                        className="btn-link"
+                                                                        onClick={() =>
+                                                                            handleClickContact(
+                                                                                oki.name,
+                                                                                oki.email,
+                                                                                oki.id,
+                                                                                ok.id,
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        Liên hệ ngay
+                                                                    </button>
+                                                                    <button
+                                                                        className="btn-link"
+                                                                        onClick={() => handleRejectUser(oki.id,
+                                                                            ok.id,)}
+                                                                    >
+                                                                        Từ chối
+                                                                    </button>
+                                                                    {
+                                                                        oki.WorkApplies.statusActive != 1 ?
+                                                                            <button
+                                                                                className="btn-link"
+                                                                                onClick={() => handleAccept(oki.id, ok.id)}
+                                                                            >
+                                                                                Chấp nhận
+                                                                            </button>
+                                                                            :
+                                                                            <button
+                                                                                className="btn-link"
+                                                                                onClick={() => handleAcceptOK(oki.id, ok.id)}
+                                                                            >
+                                                                                Nhận việc
+                                                                            </button>
+                                                                    }
+                                                                </>
+                                                            }
                                                         </div>
                                                         <Modal
                                                             title={titleModal}
@@ -225,14 +299,17 @@ export default function UserApply({ id }) {
                                                             ></textarea>
                                                         </Modal>
 
-                                                        <Popover
-                                                            content={oki.WorkApplies.message}
-                                                            title="Lời nhắn"
-                                                        >
-                                                            <button className="btn-message">
-                                                                <i className="fas fa-comment-dots"></i>
-                                                            </button>
-                                                        </Popover>
+                                                        {oki.WorkApplies.statusActive != 2 &&
+                                                            <Popover
+                                                                content={oki.WorkApplies.message}
+                                                                title="Lời nhắn"
+                                                            >
+                                                                <button className="btn-message">
+                                                                    <i className="fas fa-comment-dots"></i>
+                                                                </button>
+                                                            </Popover>
+                                                        }
+
                                                     </div>
                                                 </div>
                                             </div>

@@ -41,7 +41,7 @@ export default function ListCandidates() {
                                         <img src={data.avatar} alt="" />
                                     </div>
                                     <div className="candidate__box__name">{data.name}</div>
-                                    <div className="candidate__box__job">{data?.TypeOfWorks[0]?.name ?? "Thiết kế website"}</div>
+                                    {/* <div className="candidate__box__job">{data?.TypeOfWorks[0]?.name ?? "Thiết kế website"}</div> */}
                                     <div className="candidate__box__address">{data.address}</div>
                                     <div className="candidate__box__viewProfile">
                                         <Link to={`/candidates/${data.id}`}>Xem hồ sơ</Link>

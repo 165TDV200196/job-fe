@@ -5,29 +5,19 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { getProvinces } from "sub-vn";
-import tagWorkApi from "../../../../../api/tagWorkApi";
 import workApi from "../../../../../api/workApi";
 import workTypeOfWorkApi from "../../../../../api/workTypeOfWorkApi";
-import { tagData } from "../../../../admin/Slice/tagSlice";
 import { typeWorkData } from "../../../../admin/Slice/typeWorkSlice";
 import { addwork, updatework } from "../../../../admin/Slice/workSlice";
 import { FormatProvince } from "../../../../container/Functionjs";
 import SpinLoad from "../../../Spin/Spin";
 export default function AddJob({ id, idEdit, onChangeTabs }) {
     const dispatch = useDispatch();
-    const actionResultTag = () => {
-        dispatch(tagData({ status: 1 }));
-    };
+
     const actionResultTypeOfWork = () => {
         dispatch(typeWorkData({ status: 1 }));
     };
-    const getTag = (e) => {
-        let tag = [];
-        for (let i = 0; i < e.length; i++) {
-            tag.push(`${e[i].tagId}`);
-        }
-        return tag;
-    };
+
     useEffect(async () => {
         if (idEdit) {
             reset(
@@ -40,7 +30,6 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
                         date: data.dealtime,
                         address: data.address,
                         typeofworkId: data.TypeOfWorks[0]?.id,
-                        tagId: getTag(data.tagWork),
                     });
                     setDescripton(data.description);
                     setInterest(data.interest);
@@ -57,8 +46,6 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
             setExprience("");
         }
     }, [idEdit]);
-    const tags = useSelector((state) => state.tags.tag.data);
-    const loadingTag = useSelector((state) => state.tags.loading);
     const typeWorks = useSelector((state) => state.typeWorks.typeWork.data);
     const loadingTypeWork = useSelector((state) => state.typeWorks.loading);
     const { register, handleSubmit, reset } = useForm();
@@ -70,7 +57,6 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
         load: false,
         typeofworkId: 2,
         address: "Hà Nội",
-        tagId: [],
         price1: "",
         nature: "Full Time",
         request: "Không yêu cầu",
@@ -81,7 +67,6 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
         ...objDefault,
     });
     const {
-        tagId,
         price1,
         price2,
         nature,
@@ -94,11 +79,8 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
     const onSubmit = async (data) => {
         if (
             data.name === "" ||
-            // price1 === "" ||
-            // price2 === "" ||
             request === "" ||
             nature === "" ||
-            tagId.length === 0 ||
             interest === "" ||
             description === "" ||
             exprience === "" ||
@@ -115,10 +97,7 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
                 ...state,
                 load: true,
             });
-            var tagWork = [];
-            for (let i = 0; i < tagId.length; i++) {
-                tagWork.push({ tagId: tagId[i] });
-            }
+
             var workType = [];
             workType.push({ typeofworkId: typeofworkId });
             if (idEdit) {
@@ -129,13 +108,7 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
                         workId: idEdit,
                     },
                 ]);
-                await tagWorkApi.deleteTagWork(idEdit);
-                var dataTag = [];
-                for (let i = 0; i < tagId.length; i++) {
-                    let tag = tagId[i];
-                    dataTag.push({ workId: idEdit, tagId: tag });
-                }
-                await tagWorkApi.postTagWork(dataTag);
+
                 const action = updatework({
                     workType,
                     companyId: id,
@@ -172,7 +145,6 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
                     price2: price2 ? price2 : 0,
                     request,
                     nature,
-                    tagWork,
                     interest,
                     description,
                     exprience,
@@ -229,21 +201,11 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
         });
     };
     useEffect(() => {
-        actionResultTag();
         actionResultTypeOfWork();
     }, []);
     const data = [];
-    if (tags) {
-        tags.rows.map((e) => {
-            data.push(<Select.Option key={e.id}>{e.name}</Select.Option>);
-        });
-    }
-    const onChangeTag = (e) => {
-        setState({
-            ...state,
-            tagId: e,
-        });
-    };
+
+
     const onchangeAddress = (e) => {
         setState({
             ...state,
@@ -370,20 +332,22 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
                             {console.log('date', date ? date : new Date())}
                             {console.log("date", moment(date ? date : new Date(), "YYYY-MM-DD"))}
                         </div>
+
                         <div className="form-group w-45">
-                            <label htmlFor="">Tags liên quan</label>
-                            {console.log("tagId", tagId)}
-                            {loadingTag ? (
+                            <label htmlFor="">Loại công việc</label>
+                            {loadingTypeWork ? (
                                 <SpinLoad />
                             ) : (
                                 <Select
-                                    value={tagId ? tagId : []}
-                                    mode="tags"
-                                    onChange={onChangeTag}
-                                    className="form-control"
-                                    placeholder="Tags Mode"
+                                    value={typeofworkId}
+                                    onChange={onChangeTypeWork}
+                                    className="form-control w-100"
                                 >
-                                    {data}
+                                    {typeWorks.rows.map((data, index) => (
+                                        <Select.Option value={data.id} key={index}>
+                                            {data.name}
+                                        </Select.Option>
+                                    ))}
                                 </Select>
                             )}
                         </div>
@@ -420,24 +384,7 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
                             </Select>
                         </div>
                     </div>
-                    <div className="form-group w-45">
-                        <label htmlFor="">Loại công việc</label>
-                        {loadingTypeWork ? (
-                            <SpinLoad />
-                        ) : (
-                            <Select
-                                value={typeofworkId}
-                                onChange={onChangeTypeWork}
-                                className="form-control w-100"
-                            >
-                                {typeWorks.rows.map((data, index) => (
-                                    <Select.Option value={data.id} key={index}>
-                                        {data.name}
-                                    </Select.Option>
-                                ))}
-                            </Select>
-                        )}
-                    </div>
+
                     <div className="form-group">
                         <label htmlFor="">Mô tả</label>
                         <JoditEditor

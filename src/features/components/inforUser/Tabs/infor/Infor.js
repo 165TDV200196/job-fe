@@ -10,18 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import SpinLoad from "../../../Spin/Spin";
 import { useHistory } from "react-router-dom";
 import userApi from "../../../../../api/userApi";
-import userTypeOfWorkApi from "../../../../../api/userTypeOfWorkApi";
-import userTagApi from "../../../../../api/userTagApi";
 import { updateuser, userData } from "../../../../admin/Slice/userSlice";
-import { tagData } from "../../../../admin/Slice/tagSlice";
 import { typeWorkData } from "../../../../admin/Slice/typeWorkSlice";
 import { checkArrayEquar } from "../../../../container/Functionjs";
 export default function Infor({ id }) {
     const [state, setState] = useState({
-        typeofworkId: "",
-        typeofworkCheck: "",
-        tagId: "",
-        tagCheck: "",
         loading: false,
         linkImg: "",
         tenanh: "",
@@ -37,32 +30,17 @@ export default function Infor({ id }) {
         linkImg,
         tenanh,
         img,
-        typeofworkId,
         anh,
         linkImgBanner,
         tenanhBanner,
-        typeofworkCheck,
-        tagCheck,
         imgBanner,
         anhBanner,
-        tagId,
     } = state;
     const { register, handleSubmit, reset } = useForm();
     const [content, setContent] = useState();
     const dispatch = useDispatch();
 
     const [male, setMale] = useState("");
-    const actionResultTag = async () => {
-        await dispatch(tagData({ status: 1 }));
-    };
-    const actionResultTypeOfWork = async () => {
-        await dispatch(typeWorkData({ status: 1 }));
-    };
-
-    const tags = useSelector((state) => state.tags.tag.data);
-    const loadingTag = useSelector((state) => state.tags.loading);
-    const typeWorks = useSelector((state) => state.typeWorks.typeWork.data);
-    const loadingTypeWork = useSelector((state) => state.typeWorks.loading);
 
     const getApi = async () => {
         return await userApi.getOne(id).then((data) => {
@@ -70,25 +48,7 @@ export default function Infor({ id }) {
         });
     };
 
-    const formatTag = (e) => {
-        let tag = [];
-        for (let i = 0; i < e.length; i++) {
-            tag.push(`${e[i].id}`);
-        }
-        return tag;
-    };
-
-    const formatTypeOfWork = (e) => {
-        let TypeOfWork = [];
-        for (let i = 0; i < e.length; i++) {
-            TypeOfWork.push(e[i].id);
-        }
-        return TypeOfWork;
-    };
-
     useEffect(() => {
-        actionResultTag();
-        actionResultTypeOfWork();
         if (id) {
             Promise.all([getApi()]).then(function (data) {
                 setContent(data[0].introduce);
@@ -98,10 +58,7 @@ export default function Infor({ id }) {
                     ...state,
                     anh: data[0].avatar,
                     anhBanner: data[0].banner,
-                    tagId: formatTag(data[0].Tags),
-                    tagCheck: formatTag(data[0].Tags),
-                    typeofworkId: formatTypeOfWork(data[0].TypeOfWorks),
-                    typeofworkCheck: formatTypeOfWork(data[0].TypeOfWorks),
+
                 });
             });
         }
@@ -112,19 +69,8 @@ export default function Infor({ id }) {
     };
 
     const edit = async (data) => {
-        const TypeOfWorks = [{ userId: id, typeofworkId: typeofworkId }];
-        const UserTag = [];
-        for (let i = 0; i < tagId.length; i++) {
-            UserTag.push({ userId: id, tagId: tagId[i] });
-        }
-        if (!checkArrayEquar(typeofworkCheck, typeofworkId)) {
-            await userTypeOfWorkApi.deleteuserTypeOfWork(id);
-            await userTypeOfWorkApi.postuserTypeOfWork(TypeOfWorks);
-        }
-        if (!checkArrayEquar(tagId, tagCheck)) {
-            await userTagApi.deleteuserTag(id);
-            await userTagApi.postuserTag(UserTag);
-        }
+
+
         if (data.anh && data.anhBanner === undefined) {
             dispatch(
                 updateuser({
@@ -189,8 +135,6 @@ export default function Infor({ id }) {
     const onSubmit = async (data) => {
         if (
             data.phone === "" ||
-            tagId.length === 0 ||
-            typeofworkId.length === 0 ||
             data.email === "" ||
             content === ""
         ) {
@@ -255,23 +199,7 @@ export default function Infor({ id }) {
         });
     };
     const data = [];
-    if (tags) {
-        tags.rows.map((e) => {
-            data.push(<Option key={e.id}>{e.name}</Option>);
-        });
-    }
-    const onChangeTag = (e) => {
-        setState({
-            ...state,
-            tagId: e,
-        });
-    };
-    const onChangeTypeWork = (e) => {
-        setState({
-            ...state,
-            typeofworkId: e,
-        });
-    };
+
     return (
         <div className="infor">
             <div className="heading">
@@ -396,40 +324,7 @@ export default function Infor({ id }) {
                             />
                         </div>
                     </div>
-                    <div className="d-flex">
-                        <div className="form-group w-45">
-                            <label htmlFor="">Kỹ năng hiện có</label>
-                            {loadingTag ? (
-                                <SpinLoad />
-                            ) : (
-                                <Select
-                                    mode="tags"
-                                    value={tagId ? tagId : ""}
-                                    onChange={onChangeTag}
-                                    className="form-control"
-                                    placeholder="Tags Mode"
-                                >
-                                    {data}
-                                </Select>
-                            )}
-                        </div>
-                        <div className="form-group w-45">
-                            <label htmlFor="">Loại công việc</label>
-                            {loadingTypeWork ? (
-                                <SpinLoad />
-                            ) : (
-                                <Select
-                                    value={typeofworkId}
-                                    onChange={onChangeTypeWork}
-                                    className="form-control w-100"
-                                >
-                                    {typeWorks.rows.map((data) => (
-                                        <Option value={data.id}>{data.name}</Option>
-                                    ))}
-                                </Select>
-                            )}
-                        </div>
-                    </div>
+
                     <div className="d-flex">
                         <div className="form-group w-45">
                             <label htmlFor="">Email</label>
