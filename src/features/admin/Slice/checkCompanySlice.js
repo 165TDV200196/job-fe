@@ -15,13 +15,13 @@ const CheckCompany = createSlice({
     },
     reducers: {
         addcheckCompany: (state, action) => {
-            checkCompanyApi.postcheckCompany(action.payload);
+            checkCompanyApi.postcompany(action.payload);
         },
         removecheckCompany: (state, action) => {
-            checkCompanyApi.deletecheckCompany(action.payload);
+            checkCompanyApi.deletecompany(action.payload);
         },
         updatecheckCompany: (state, action) => {
-            checkCompanyApi.editcheckCompany(action.payload);
+            checkCompanyApi.editcompany(action.payload);
         }
     },
     extraReducers: {

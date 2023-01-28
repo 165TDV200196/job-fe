@@ -105,6 +105,7 @@ export default function Jd(props) {
 
             await storage.ref(`fileCv/${file.name}`).put(file);
             const file1 = await storage.ref("fileCv").child(tenFile).getDownloadURL();
+            console.log('getStatusActive(data.WorkApplies)', getStatusActive(data.WorkApplies))
             if (getStatusActive(data.WorkApplies) == "empty") {
                 await workApplyApi.postworkApply([
                     { userId: user, workId: +id, message: messager, link: file1, status: 0, statusActive: null },
@@ -113,11 +114,22 @@ export default function Jd(props) {
                 })
             } else {
                 let index = data.WorkApplies.findIndex(b => b.userId == user)
-                await workApplyApi.editworkApply(
-                    { id: data.WorkApplies[index].id, userId: user, workId: +id, message: messager, link: file1, statusActive: null },
-                ).then(ok => {
-                    props.reload()
-                })
+                console.log('index', index);
+                if (index < 0) {
+                    await workApplyApi.postworkApply([
+                        { userId: user, workId: +id, message: messager, link: file1, status: 0, statusActive: null },
+                    ]).then(ok => {
+                        props.reload()
+                    })
+                } else {
+                    await workApplyApi.editworkApply(
+                        { id: data.WorkApplies[index].id, userId: user, workId: +id, message: messager, link: file1, statusActive: null },
+                    ).then(ok => {
+                        props.reload()
+                    })
+
+                }
+
             }
             setIsModalVisible(false);
             setConfirmLoading(false);
