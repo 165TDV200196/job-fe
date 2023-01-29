@@ -14,11 +14,8 @@ import Jobs from "../Jobs/Jobs";
 import Statistical from "../Statistical/Statistical";
 import AddSocialNetwork from "../SocialNetwork/addSocialNetwork";
 import SocialNetwork from "../SocialNetwork/SocialNetwork";
-// import AddTag from "../Tag/AddTag";
-// import Tag from "../Tag/Tag";
 import AddTypeWork from "../TypeWork/AddTypeWork";
 import TypeWork from "../TypeWork/TypeWork";
-import User from "../User/User";
 import CheckJob from "../CheckJob/CheckJob";
 export default function Nav() {
     const match = useRouteMatch();
