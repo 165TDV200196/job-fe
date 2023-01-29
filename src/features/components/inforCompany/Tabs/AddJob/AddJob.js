@@ -87,6 +87,7 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
             form === "" ||
             data.address === "" ||
             data.phone === "" ||
+            data.quantity === "" ||
             data.email === "" ||
             data.addressGoogle === "" ||
             date === ""
@@ -125,6 +126,7 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
                     form,
                     address,
                     phone: data.phone,
+                    quantity: data.quantity,
                     email: data.email,
                     addressGoogle: data.addressGoogle,
                     dealtime: date,
@@ -151,6 +153,7 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
                     form,
                     address,
                     phone: data.phone,
+                    quantity: data.quantity,
                     email: data.email,
                     addressGoogle: data.addressGoogle,
                     dealtime: date,
@@ -366,7 +369,7 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
                             </Select>
                         </div>
                         <div className="form-group w-45">
-                            <label htmlFor="">Yêu cầu bằng cấp</label>
+                            {/* <label htmlFor="">Yêu cầu bằng cấp</label>
                             <Select
                                 defaultValue="Không yêu cầu"
                                 onChange={onChangeRequest}
@@ -381,7 +384,16 @@ export default function AddJob({ id, idEdit, onChangeTabs }) {
                                 <Select.Option value="Cao học">Cao học</Select.Option>
                                 <Select.Option value="Tiến sỹ">Tiến sỹ</Select.Option>
                                 <Select.Option value="Thạc sỹ">Thạc sỹ</Select.Option>
-                            </Select>
+                            </Select> */}
+                            <label htmlFor="">Số lượng quyển</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                {...register("quantity")}
+                                id=""
+                                aria-describedby="helpId"
+                                placeholder=""
+                            />
                         </div>
                     </div>
 

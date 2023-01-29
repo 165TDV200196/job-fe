@@ -34,7 +34,7 @@ export default function ListJobs() {
                         work.rows.map((ok, index) => (
                             <div className="col-lg-6" key={index}>
                                 <div className="job__box">
-                                    <div className="job__tag">hot</div>
+                                    {/* <div className="job__tag">hot</div> */}
                                     <div className="job__logo">
                                         <img src={ok.Company.avatar} alt="" />
                                     </div>

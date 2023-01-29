@@ -60,7 +60,7 @@ export default function Job({
                             ) : (
                                 work?.rows?.map((data, index) => (
                                     <div className="job__box" key={index}>
-                                        <div className="job__tag">hot</div>
+                                        {/* <div className="job__tag">hot</div> */}
                                         <div className="job__logo">
                                             <img src={data.Company.avatar} alt="" />
                                         </div>
@@ -110,7 +110,7 @@ export default function Job({
                         ) : (
                             searchData?.rows?.map((data, index) => (
                                 <div className="job__box" key={index}>
-                                    <div className="job__tag">hot</div>
+                                    {/* <div className="job__tag">hot</div> */}
                                     <div className="job__logo">
                                         <img src={data.Company.avatar} alt="" />
                                     </div>
@@ -174,28 +174,6 @@ export default function Job({
                         )}
                     </div>
                     <div className="col-md-4">
-                        <div className="box__filter">
-                            <div className="filter--title">
-                                <p>Số lượng tuyển</p>
-                            </div>
-                            <div className="filter__content">
-                                <Radio.Group onChange={onChangeAmount} value={amount}>
-                                    <Radio className="mb-1" value="0">
-                                        Tất cả
-                                    </Radio>
-                                    <br />
-                                    <Radio className="mb-1" value="5">
-                                        5 nhân viên
-                                    </Radio>
-                                    <br />
-                                    <Radio className="mb-1" value="10">
-                                        10 nhân viên
-                                    </Radio>
-                                    <br />
-                                    <Radio value="15">15 nhân viên</Radio>
-                                </Radio.Group>
-                            </div>
-                        </div>
                         <div className="box__filter">
                             <div className="filter--title">
                                 <p>Thời gian làm việc </p>

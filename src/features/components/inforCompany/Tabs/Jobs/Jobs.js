@@ -99,7 +99,7 @@ export default function Jobs({
                                             </Popconfirm>
                                         </>
                                     )}
-                                    <div className="job__tag">hot</div>
+                                    {/* <div className="job__tag">hot</div> */}
                                     <div className="job__logo">
                                         <img src={ok.Company.avatar} alt="" />
                                     </div>

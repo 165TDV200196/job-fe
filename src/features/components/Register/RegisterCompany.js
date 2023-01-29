@@ -12,6 +12,7 @@ export default function RegisterCompany() {
         userName: yup.string().email().required(),
         name: yup.string().required(),
         web: yup.string().required(),
+        quantity: yup.number().required(),
         address: yup.string().required(),
         phone: yup.number().required(),
         password: yup.string().min(4).max(20).required(),
@@ -44,6 +45,7 @@ export default function RegisterCompany() {
             name: data.name,
             email: data.userName,
             password: data.password,
+            quantity: data.quantity,
             status: 0,
         };
         const link = "http://localhost:777/companys";
@@ -92,6 +94,11 @@ export default function RegisterCompany() {
                 <p className="text-danger">
                     {errors.web ? "Website công ty không được bỏ trống" : ""}
                 </p>
+                <div className="register__box__left__title">Số lượng nhân viên</div>
+                <input type="text" {...register("quantity")} placeholder="Số lượng nhân viên" />
+                <p className="text-danger">
+                    {errors.web ? "Số lượng nhân viên không được bỏ trống" : ""}
+                </p>
                 <div className="register__box__left__title">Mật khẩu</div>
                 <input
                     type="password"
@@ -99,9 +106,7 @@ export default function RegisterCompany() {
                     placeholder="Mật khẩu"
                 />
                 <p className="text-danger">
-                    {errors.password
-                        ? "Mật khẩu ít nhất 4 ký tự và không quá 20 ký tự"
-                        : ""}
+                    {errors.password ? "Mật khẩu ít nhất 4 ký tự và không quá 20 ký tự" : ""}
                 </p>
                 <div className="register__box__left__title">Nhập lại mật khẩu</div>
                 <input

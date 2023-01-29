@@ -67,7 +67,7 @@ export default function Infor({ id }) {
                     avatar: data.anh,
                     name: data.name,
                     address: data.address,
-                    nation: data.nation,
+                    quantity: data.quantity,
                     website: data.website,
                     phone: data.phone,
                     email: data.email,
@@ -82,7 +82,7 @@ export default function Infor({ id }) {
                     banner: data.anhBanner,
                     name: data.name,
                     address: data.address,
-                    nation: data.nation,
+                    quantity: data.quantity,
                     website: data.website,
                     phone: data.phone,
                     email: data.email,
@@ -98,7 +98,7 @@ export default function Infor({ id }) {
                     banner: data.anhBanner,
                     name: data.name,
                     address: data.address,
-                    nation: data.nation,
+                    quantity: data.quantity,
                     website: data.website,
                     phone: data.phone,
                     email: data.email,
@@ -112,7 +112,7 @@ export default function Infor({ id }) {
                 updatecompany({
                     name: data.name,
                     address: data.address,
-                    nation: data.nation,
+                    quantity: data.quantity,
                     website: data.website,
                     phone: data.phone,
                     email: data.email,
@@ -128,7 +128,7 @@ export default function Infor({ id }) {
 
         if (
             data.name === "" ||
-            data.nation === "" ||
+            data.quantity === "" ||
             data.address === "" ||
             data.phone === "" ||
             content === "" ||
@@ -298,11 +298,11 @@ export default function Infor({ id }) {
                     </div>
                     <div className="d-flex">
                         <div className="form-group w-45">
-                            <label htmlFor="">Quốc gia</label>
+                            <label htmlFor="">Số lượng nhân viên</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                {...register("nation")}
+                                {...register("quantity")}
                                 id=""
                                 aria-describedby="helpId"
                                 placeholder=""

@@ -30,9 +30,13 @@ export default function ContentCompany({ data }) {
                                     <i className="fas fa-sign-in-alt"></i>
                                 </div>
                                 <div>
-                                    <div className="company__box__detail__title">Tham gia</div>
+                                    <div className="company__box__detail__title">Số lượng nhân viên</div>
                                     <div className="company__box__detail__content">
-                                        {checkDateCompany(data.createdAt)}
+                                        {data.quantity ? (
+                                            data.quantity
+                                        ) : (
+                                            <span className="text-danger">Chưa cập nhật</span>
+                                        )}
                                     </div>
                                 </div>
                             </div>

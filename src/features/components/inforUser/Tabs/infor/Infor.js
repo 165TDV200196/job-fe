@@ -11,8 +11,8 @@ import SpinLoad from "../../../Spin/Spin";
 import { useHistory } from "react-router-dom";
 import userApi from "../../../../../api/userApi";
 import { updateuser, userData } from "../../../../admin/Slice/userSlice";
-import { typeWorkData } from "../../../../admin/Slice/typeWorkSlice";
-import { checkArrayEquar } from "../../../../container/Functionjs";
+// import { typeWorkData } from "../../../../admin/Slice/typeWorkSlice";
+// import { checkArrayEquar } from "../../../../container/Functionjs";
 export default function Infor({ id }) {
     const [state, setState] = useState({
         loading: false,
@@ -41,6 +41,7 @@ export default function Infor({ id }) {
     const dispatch = useDispatch();
 
     const [male, setMale] = useState("");
+    const [date, setDate] = useState("");
 
     const getApi = async () => {
         return await userApi.getOne(id).then((data) => {
@@ -53,12 +54,12 @@ export default function Infor({ id }) {
             Promise.all([getApi()]).then(function (data) {
                 setContent(data[0].introduce);
                 setMale(data[0].male);
+                setDate(data[0].date)
                 reset(data[0]);
                 setState({
                     ...state,
                     anh: data[0].avatar,
                     anhBanner: data[0].banner,
-
                 });
             });
         }
@@ -69,8 +70,6 @@ export default function Infor({ id }) {
     };
 
     const edit = async (data) => {
-
-
         if (data.anh && data.anhBanner === undefined) {
             dispatch(
                 updateuser({
@@ -81,6 +80,7 @@ export default function Infor({ id }) {
                     male,
                     phone: data.phone,
                     email: data.email,
+                    date,
                     introduce: content,
                     id: id,
                 }),
@@ -95,6 +95,7 @@ export default function Infor({ id }) {
                     male,
                     phone: data.phone,
                     email: data.email,
+                    date,
                     introduce: content,
                     id: id,
                 }),
@@ -110,6 +111,7 @@ export default function Infor({ id }) {
                     address: data.address,
                     phone: data.phone,
                     email: data.email,
+                    date,
                     introduce: content,
                     id: id,
                 }),
@@ -123,6 +125,7 @@ export default function Infor({ id }) {
                     phone: data.phone,
                     male,
                     email: data.email,
+                    date,
                     introduce: content,
                     id: id,
                 }),
@@ -136,6 +139,7 @@ export default function Infor({ id }) {
         if (
             data.phone === "" ||
             data.email === "" ||
+            date === "" ||
             content === ""
         ) {
             message.warning("Bạn cần nhập đầy đủ thông tin!");
@@ -198,7 +202,10 @@ export default function Infor({ id }) {
             imgBanner: e.target.files[0],
         });
     };
-    const data = [];
+
+    const handleChangeDate = (e) => {
+        setDate(e.target.value)
+    }
 
     return (
         <div className="infor">
@@ -336,6 +343,10 @@ export default function Infor({ id }) {
                                 aria-describedby="helpId"
                                 placeholder=""
                             />
+                        </div>
+                        <div className="form-group w-45">
+                            <label htmlFor="">Ngày sinh</label>
+                            <input className="form-control" type="date" onChange={handleChangeDate} value={date.split("T")[0]} />
                         </div>
 
                     </div>

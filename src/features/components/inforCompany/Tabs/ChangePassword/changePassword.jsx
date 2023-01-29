@@ -90,8 +90,10 @@ export default function ChangePassword({ id }) {
                                 placeholder=""
                             />
                         </div>
-                        <div className="text-center mtb">
-                            <input type="submit" value="Cập nhật" />
+                        <div className="infor">
+                            <div className="text-center mtb">
+                                <input type="submit" value="Cập nhật" />
+                            </div>
                         </div>
                     </div>
                 </form>

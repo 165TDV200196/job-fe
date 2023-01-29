@@ -5,6 +5,7 @@ import { checkDateCompany, formatDateWork } from "../../../container/Functionjs"
 import "../../../scss/DetailCandidate/CandidateContent.scss";
 
 export default function CandidateContent({ data }) {
+    console.log('data', data)
     return (
         <div className="candidateContent">
             <div className="container">
@@ -53,9 +54,13 @@ export default function CandidateContent({ data }) {
                                     <i className="fas fa-sign-in-alt"></i>
                                 </div>
                                 <div>
-                                    <div className="candidate__box__detail__title">Tham gia</div>
+                                    <div className="candidate__box__detail__title">Giới tính</div>
                                     <div className="candidate__box__detail__content">
-                                        {checkDateCompany(data.createdAt)}
+                                        {data.male ? (
+                                            data.male
+                                        ) : (
+                                            <span className="text-danger">Chưa cập nhật</span>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -129,3 +134,4 @@ export default function CandidateContent({ data }) {
         </div>
     );
 }
+

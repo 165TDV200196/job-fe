@@ -30,7 +30,7 @@ export default function WorkSave({ id }) {
                         data.map((ok, index) => (
                             <div className="col-lg-12" key={index}>
                                 <div className="job__box mb-3">
-                                    <div className="job__tag">hot</div>
+                                    {/* <div className="job__tag">hot</div> */}
                                     <div className="job__logo">
                                         <img src={ok.Company.avatar} alt="" />
                                     </div>

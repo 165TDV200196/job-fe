@@ -12,7 +12,6 @@ import Admin from "./app/Admin";
 import Candidates from "./features/components/Candidates/Candidates";
 import CheckMenu from "./features/components/CheckMenu/CheckMenu";
 import Company from "./features/components/company/Company";
-import DetailFormCV from "./features/components/DetaiFormCV/DetaiFormCV";
 import DetailCandidate from "./features/components/DetailCandidate/DetailCandidate";
 import DetailCompany from "./features/components/DetailCompany/DetailCompany";
 import DetailJob from "./features/components/DetailJob/DetailJob";
@@ -106,12 +105,7 @@ function App() {
                     <Route exact path="/inforUser">
                         <InforUser />
                     </Route>
-                    <Route exact path="/detaiFormCV/:id">
-                        <DetailFormCV />
-                    </Route>
-                    {/* <Route exact path="/inforCV">
-                        <InforCV />
-                    </Route> */}
+
                 </Switch>
             </Router>
         </div>

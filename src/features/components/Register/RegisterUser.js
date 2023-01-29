@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { message } from "antd";
+import { message, Radio, Select } from "antd";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 export default function RegisterUser() {
@@ -15,6 +15,8 @@ export default function RegisterUser() {
         password: yup.string().min(4).max(20).required(),
         rePassword: yup.string().oneOf([yup.ref("password"), null]),
     });
+
+    const [male, setMale] = useState("Nam");
     const {
         register,
         handleSubmit,
@@ -38,6 +40,7 @@ export default function RegisterUser() {
             email: data.userName,
             password: data.password,
             asUserRole,
+            male,
             status: 1,
         };
         const link = "http://localhost:777/users";
@@ -55,6 +58,11 @@ export default function RegisterUser() {
                 console.log(er);
             });
     };
+
+    const onChange = (e) => {
+        setMale(e.target.value);
+    }
+
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -83,6 +91,11 @@ export default function RegisterUser() {
                 <p className="text-danger">
                     {errors.date ? "Ngày sinh không hợp lệ" : ""}
                 </p>
+                <div className="register__box__left__title">Giới tính</div>
+                <Radio.Group onChange={onChange} value={male} style={{ marginBottom: 10 }}>
+                    <Radio value="Nam">Nam</Radio>
+                    <Radio value="Nữ">Nữ</Radio>
+                </Radio.Group>
                 <div className="register__box__left__title">Mật khẩu</div>
                 <input
                     type="password"

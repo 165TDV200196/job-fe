@@ -349,6 +349,23 @@ export default function Jd(props) {
                                 <i className="far fa-clock"></i>
                             </div>
                         </div>
+                        <div className="deadline__box">
+                            <div className="deadline yellow">
+                                <div className="deadline__icon">
+                                    <i className="fas fa-user-graduate"></i>
+                                </div>
+                                <div>
+                                    <div className="deadline__title">Số lượng tuyển</div>
+                                    <div className="deadline__time">
+                                        {console.log(data)}
+                                        {data?.quantity}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="deadline__icon--bot">
+                                <i className="fas fa-user-graduate"></i>
+                            </div>
+                        </div>
                         {user &&
                             <div
                                 className="save__box"
