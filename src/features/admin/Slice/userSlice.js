@@ -4,7 +4,13 @@ const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 export const userData = createAsyncThunk('users/userData', async (page) => {
     const user = await userApi.getAll(page);
-    return user;
+    let convertRows = user.data.rows.map(ok => ({ ...ok, isCandidate: ok.Roles[0].name === "user" }))
+    return {
+        data: {
+            count: user.data.count,
+            rows: convertRows
+        }
+    };
 })
 const User = createSlice({
     name: "users",
