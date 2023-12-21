@@ -102,6 +102,7 @@ export default function Jd(props) {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+  console.log("data", data);
   return (
     <div className="Jd">
       <Modal
@@ -131,7 +132,7 @@ export default function Jd(props) {
       </Modal>
       <div className="container">
         <div className="row">
-          <div className="col-md-9 ">
+          <div className="col-md-12 ">
             <div className="job__box">
               <div className="job__box__title">
                 <h4>{data.name}</h4>
@@ -155,14 +156,65 @@ export default function Jd(props) {
                 </div>
               </div>
               <div
-                className="apply"
-                onClick={() => showModal(checkDateDealtime(data.dealtime))}
+                style={{
+                  position: "absolute",
+                  bottom: 20,
+                  right: 20,
+                  display: "flex",
+                }}
               >
-                <Link to="#">Ứng tuyển ngay</Link>
+                <div
+                  className="btn"
+                  onClick={notSave ? onSaveWork : onNotSaveWork}
+                >
+                  <div className="save__box__title">
+                    {notSave ? (
+                      <Link to="#">Lưu công việc</Link>
+                    ) : (
+                      <Link to="#">Huỷ lưu công việc</Link>
+                    )}
+                  </div>
+                </div>
+                <div
+                  className="btn"
+                  onClick={() => showModal(checkDateDealtime(data.dealtime))}
+                >
+                  <Link to="#">Ứng tuyển ngay</Link>
+                </div>
               </div>
             </div>
             <div className="job__box">
-              <div>
+              <div className="job__box__title--jd">
+                <strong>Mức lương :</strong> {data.price1} - {data.price2} triệu
+              </div>
+              <div className="job__box__title--jd">
+                <strong>Kinh nghiệm :</strong>
+                {renderHTML(data.exprience ?? "")}
+              </div>
+              <div className="job__box__title--jd">
+                <strong>Trình độ :</strong> {data.request}
+              </div>
+              <div className="job__box__title--jd">
+                <strong>Vị trí :</strong>
+              </div>
+              <div className="job__box__title--jd">
+                <strong>Loại công việc :</strong>{" "}
+                {data.TypeOfWorks.map((x) => x.name).join(", ")}
+              </div>
+              <div className="job__box__title--jd">
+                <strong>Hình thức :</strong> {renderHTML(data.nature ?? "")}
+              </div>
+              <div className="job__box__title--jd">
+                <strong>Hạn nộp hồ sơ :</strong> {data.dealtime}
+              </div>
+              <div className="job__box__title--jd">
+                <strong>Số lượng :</strong>
+              </div>
+              <div className="job__box__title--jd">
+                <strong>Quy trình phỏng vấn :</strong>
+              </div>
+
+              {/* <div>
                 <div className="job__box__title--jd">
                   <p>Mô tả công việc</p>
                 </div>
@@ -236,38 +288,7 @@ export default function Jd(props) {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="col-md-3">
-            <div className="deadline__box">
-              <div className="deadline">
-                <div className="deadline__icon">
-                  <i className="far fa-clock"></i>
-                </div>
-                <div>
-                  <div className="deadline__title">Hạn chót</div>
-                  <div className="deadline__time">
-                    {formatDateWork(data.dealtime ?? "")}
-                  </div>
-                </div>
-              </div>
-              <div className="deadline__icon--bot">
-                <i className="far fa-clock"></i>
-              </div>
-            </div>
-            <div
-              className="save__box"
-              onClick={notSave ? onSaveWork : onNotSaveWork}
-            >
-              <div className="save__box__title">
-                {notSave ? "Lưu công việc" : "Huỷ lưu công việc"}
-              </div>
-            </div>
-            <div className="advertisement">
-              <img src={qc} alt="" />
-            </div>
-            <div className="box__keyTag">
-              <KeyTag />
+             */}
             </div>
           </div>
         </div>
