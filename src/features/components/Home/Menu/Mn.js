@@ -94,23 +94,14 @@ export default function Mn(props) {
           <div className="item active" id="">
             <Link to="/">Trang chủ</Link>
           </div>
-          <div className="item" id="candidates">
-            <Link to="/candidates">Ứng viên</Link>
-          </div>
           <div className="item" id="jobs">
             <Link to="/jobs">Việc làm</Link>
           </div>
-          <div className="item" id="companys">
-            <Link to="/companys">Nhà tuyển dụng</Link>
-          </div>
-          {/* <div className="item">
-            <Link to="/createCv">Tạo cv</Link>
-          </div> */}
           <div className="line_slide" ref={line_el}></div>
           {user ? (
             user.role === "admin" || user.role === "grant" ? (
               <div className="item">
-                <Link to="/admin">admin</Link>
+                <Link to="/admin/work">admin</Link>
               </div>
             ) : (
               ""

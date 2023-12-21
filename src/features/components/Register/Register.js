@@ -1,11 +1,9 @@
 import React, { createRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../scss/Register/Register.scss";
-import RegisterCompany from "./RegisterCompany";
 import RegisterUser from "./RegisterUser";
 export default function Register() {
   const UserEl = createRef();
-  const CompanyEl = createRef();
 
   const [check, setCheck] = useState(1);
   const onClickBtn = (e) => {
@@ -30,24 +28,11 @@ export default function Register() {
         <div className="line__register"></div>
         <div className="register__box__left">
           <div className="register__box__left--account">
-            <button
-              className="account active"
-              onClick={() => onClickBtn(UserEl)}
-              ref={UserEl}
-              id="user"
-            >
+            <button className="account active" ref={UserEl} id="user">
               Tài khoản người dùng
             </button>
-            <button
-              className="account"
-              onClick={() => onClickBtn(CompanyEl)}
-              ref={CompanyEl}
-              id="company"
-            >
-              Tài khoản công ty
-            </button>
           </div>
-          {check === 1 ? <RegisterUser /> : <RegisterCompany />}
+          <RegisterUser />
         </div>
         <div className="register__box__right">
           <div className="right">

@@ -14,6 +14,9 @@ export default function Job({
   onTime,
   onAmout,
   amount,
+  onSalary,
+  onExp,
+  salary,
   time,
   typeWorkValue,
   onTypeWork,
@@ -36,10 +39,34 @@ export default function Job({
     dispatch(workData(page));
     dispatch(typeWorkData({ status: 1 }));
   };
+
   useEffect(() => {
     localStorage.setItem("pageWorkHome", page);
     actionResult({ page: page, status: 1 });
   }, [page]);
+
+  const resetBoxExp = () => {
+    const boxExpEl = document.querySelectorAll("#box-exp>.box");
+
+    boxExpEl.forEach((box) => {
+      box.classList.remove("active");
+    });
+  };
+
+  useEffect(() => {
+    const boxExpEl = document.querySelectorAll("#box-exp>.box");
+
+    boxExpEl.forEach((box) => {
+      box.onclick = function () {
+        if (!box.className.includes("active")) {
+          resetBoxExp();
+          onExp(box.id);
+          box.classList.add("active");
+        }
+      };
+    });
+  }, []);
+
   const onChangeTime = (e) => {
     onTime(e.target.value);
   };
@@ -49,11 +76,34 @@ export default function Job({
   const onChangeAmount = (e) => {
     onAmout(e.target.value);
   };
+  const onChangeSalary = (e) => {
+    onSalary(e.target.value);
+  };
   return (
     <div className="ListJobSearch">
       <div className="container">
         <div className="row">
           <div className="col-md-8">
+            <div className="filter-exp">
+              <div className="title">Kinh nghiệm:</div>
+              <div className="box-exp" id="box-exp">
+                <div className="box" id="1">
+                  Không có kinh nghiệm
+                </div>
+                <div className="box" id="2">
+                  1 - 3 năm
+                </div>
+                <div className="box" id="3">
+                  3 - 5 năm
+                </div>
+                <div className="box" id="4">
+                  5 - 10 năm
+                </div>
+                <div className="box" id="5">
+                  trên 10 năm
+                </div>
+              </div>
+            </div>
             {searchData === "" ? (
               loading ? (
                 <SpinLoad />
@@ -190,6 +240,29 @@ export default function Job({
                 </Radio.Group>
               </div>
             </div>
+            <div className="box__filter">
+              <div className="filter--title">
+                <p>Mức lương</p>
+              </div>
+              <div className="filter__content">
+                <Radio.Group onChange={onChangeSalary} value={salary}>
+                  <Radio className="mb-1" value="1">
+                    Dưới 5 triệu
+                  </Radio>
+                  <br />
+                  <Radio className="mb-1" value="2">
+                    5 - 10 triệu
+                  </Radio>
+                  <br />
+                  <Radio className="mb-1" value="3">
+                    10 - 15 triệu
+                  </Radio>
+                  <br />
+                  <Radio value="4">Trên 15 triệu</Radio>
+                </Radio.Group>
+              </div>
+            </div>
+
             <div className="box__filter">
               <div className="filter--title">
                 <p>Thời gian làm việc </p>

@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import workApi from "../../../api/workApi";
 import { getQueryVariable } from "../../container/Functionjs";
 import Footer from "../Home/Footer/Footer";
-import ListNew from "../Home/New/ListNew";
 import Breadcrumbs from "./Breadcrumb/Breadcrumb";
 import Job from "./ListJobs/Job";
-import { useParams } from "react-router-dom";
 import Search from "./Search/Search";
 export default function Jobs() {
   const [state, setState] = useState({
@@ -16,6 +14,8 @@ export default function Jobs() {
   const { name, address, data } = state;
   const [time, setTime] = useState("0");
   const [amount, setAmount] = useState("0");
+  const [salary, setSalary] = useState("0");
+  const [exp, setExp] = useState(0);
   const [typeWorkValue, setTypeWorkValue] = useState(
     +getQueryVariable("typeWordId") || "",
   );
@@ -33,27 +33,34 @@ export default function Jobs() {
   const onChangeAmount = (e) => {
     setAmount(e);
   };
+  const onChangeSalary = (e) => {
+    setSalary(e);
+  };
   const onChangeTypeWork = (e) => {
     setTypeWorkValue(e);
   };
-  useEffect(async () => {
-    await workApi
+  const onChangeExp = (e) => {
+    setExp(e);
+  };
+  useEffect(() => {
+    workApi
       .search({
         name: name,
         nature: time,
         address: address,
+        salary,
         status: 1,
+        exp,
         typeWordId: typeWorkValue,
       })
       .then((ok) => {
-        console.log("ok", ok);
         setState({
           ...state,
           data: ok.data,
         });
       });
     window.scrollTo(0, 0);
-  }, [name, address, time, typeWorkValue]);
+  }, [name, address, time, typeWorkValue, salary, exp]);
   return (
     <div>
       <Breadcrumbs />
@@ -64,18 +71,26 @@ export default function Jobs() {
       />
       <Job
         searchData={
-          name === "" && address === "" && time === "0" && typeWorkValue === ""
+          name === "" &&
+          address === "" &&
+          time === "0" &&
+          salary === "0" &&
+          exp === 0 &&
+          typeWorkValue === ""
             ? ""
             : data
         }
         onAmout={onChangeAmount}
+        onSalary={onChangeSalary}
         onTime={onChangeTime}
+        onExp={onChangeExp}
         time={time}
         amount={amount}
+        salary={salary}
+        exp={exp}
         typeWorkValue={typeWorkValue}
         onTypeWork={onChangeTypeWork}
       />
-      <ListNew />
       <Footer />
     </div>
   );
