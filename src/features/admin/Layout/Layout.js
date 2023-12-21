@@ -3,10 +3,9 @@ import { Layout, Menu } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
 import "../../scss/Admin/Nav.scss";
-import CandidateInfor from "../Candidates/CandidateInfor";
-import Candidates from "../Candidates/Candidates";
 import Jobs from "../Jobs/Jobs";
 import User from "../User/User";
+import CheckCompany from "../CheckCompany/CheckCompany";
 export default function Nav() {
   const match = useRouteMatch();
   // console.log(match);
@@ -42,6 +41,18 @@ export default function Nav() {
           </div>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
             <Menu.Item
+              key="4"
+              icon={
+                state.collapsed === true ? (
+                  <span className="fas fa-check"></span>
+                ) : (
+                  <span className="fas fa-check mr-2"></span>
+                )
+              }
+            >
+              <Link to={`${match.url}/checkCompany`}>Kiểm tra tài khoản</Link>
+            </Menu.Item>
+            <Menu.Item
               key="6"
               icon={
                 state.collapsed === true ? (
@@ -53,18 +64,7 @@ export default function Nav() {
             >
               <Link to={`${match.url}/work`}>Công việc</Link>
             </Menu.Item>
-            <Menu.Item
-              key="12"
-              icon={
-                state.collapsed === true ? (
-                  <span className="fas fa-user-graduate"></span>
-                ) : (
-                  <span className="fas fa-user-graduate mr-2"></span>
-                )
-              }
-            >
-              <Link to={`${match.url}/candidate`}>Ứng viên</Link>
-            </Menu.Item>
+
             <Menu.Item
               key="11"
               icon={
@@ -106,12 +106,8 @@ export default function Nav() {
               <Route exact path={`${match.path}/users`}>
                 <User url={match.url} />
               </Route>
-
-              <Route exact path={`${match.path}/candidate`}>
-                <Candidates url={match.url} />
-              </Route>
-              <Route path={`${match.path}/candidate/infor/:id`}>
-                <CandidateInfor url={match.url} />
+              <Route exact path={`${match.path}/checkCompany`}>
+                <CheckCompany url={match.url} />
               </Route>
             </Switch>
           </Content>

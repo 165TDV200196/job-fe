@@ -83,9 +83,6 @@ export default function Login({ onLogin }) {
         </div>
         <div className="login__box__right">
           <div className="right">
-            <div className="login__box__right__text">Hoặc đăng nhập với</div>
-            <button className="fb">Đăng nhập với facebook</button>
-            <button className="in">Đăng nhập với instagram</button>
             <div className="login__box__right__text">
               Chưa có tài khoản? <Link to="/register">Đăng ký</Link> ở đây
             </div>
