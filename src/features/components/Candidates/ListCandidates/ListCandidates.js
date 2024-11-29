@@ -44,7 +44,7 @@ export default function ListCandidates() {
                   <div className="candidate__box__job">Thiết kế website</div>
                   <div className="candidate__box__address">{data.address}</div>
                   <div className="candidate__box__viewProfile">
-                    <Link to={`/candidates/${data.id}`}>Xem hồ sơ</Link>
+                    <Link to={`/tuyendung/ungvien/${data.id}`}>Xem hồ sơ</Link>
                   </div>
                 </div>
               </div>

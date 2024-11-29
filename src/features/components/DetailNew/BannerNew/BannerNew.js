@@ -18,7 +18,7 @@ export default function BannerNew(props) {
         <div className="bannerNew__content__tag">
           {props.tags.map((data, index) => (
             <div className="newTag" key={index}>
-              <Link to="">{data.name}</Link>
+              <Link to="/">{data.name}</Link>
             </div>
           ))}
         </div>

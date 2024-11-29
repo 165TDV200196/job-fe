@@ -55,7 +55,7 @@ export default function Register() {
             <button className="fb">Đăng nhập với facebook</button>
             <button className="in">Đăng nhập với instagram</button>
             <div className="register__box__right__text">
-              Bạn đã có tài khoản? <Link to="/login">Đăng nhập</Link> ở đây
+              Bạn đã có tài khoản? <Link to="/dangnhap">Đăng nhập</Link> ở đây
             </div>
           </div>
         </div>

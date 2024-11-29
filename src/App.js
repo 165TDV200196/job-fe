@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
-    BrowserRouter as Router,
-    Route,
-    Switch,
-    useRouteMatch,
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useRouteMatch,
 } from "react-router-dom";
 import "./App.scss";
 import Home from "./features/components/Home/Home";
@@ -30,105 +30,104 @@ import Empty from "./features/components/Empty/Empty";
 import Menu from "./features/components/Home/Menu/Menu";
 import CheckMenu from "./features/components/CheckMenu/CheckMenu";
 function App() {
-    useEffect(() => {
-        checkBar();
-    }, []);
+  useEffect(() => {
+    checkBar();
+  }, []);
 
-    const [isLoad, setIsLoad] = useState(true);
+  const [isLoad, setIsLoad] = useState(true);
 
-    const handleLogin = () => {
-        setIsLoad(!isLoad);
-    };
+  const handleLogin = () => {
+    setIsLoad(!isLoad);
+  };
 
-    const [checkAdmin, setCheckAdmin] = useState();
-    useEffect(() => {
-        checkLoginApi.checkLogin().then((ok) => {
-            let user = ok.data.user.role;
-            console.log("ddddd");
-            if (user === "admin" || user === "grant") {
-                setCheckAdmin(
-                    <Route path="/admin">
-                        <Ladmin />
-                    </Route>,
-                );
-            } else {
-                setCheckAdmin(
-                    <Route path="/admin">
-                        <Empty />
-                    </Route>,
-                );
-            }
-        });
-    }, [isLoad]);
+  const [checkAdmin, setCheckAdmin] = useState();
+  useEffect(() => {
+    checkLoginApi.checkLogin().then((ok) => {
+      let user = ok.data.user.role;
+      console.log("ddddd");
+      if (user === "admin" || user === "grant") {
+        setCheckAdmin(
+          <Route path="/admin">
+            <Ladmin />
+          </Route>,
+        );
+      } else {
+        setCheckAdmin(
+          <Route path="/admin">
+            <Empty />
+          </Route>,
+        );
+      }
+    });
+  }, [isLoad]);
 
-    return (
-        <div>
-            <Router>
-                <Switch>
-                    <Route path={["/admin", "/register", "/Login", "/"]}>
-                        <CheckMenu />
-                    </Route>
-                </Switch>
+  return (
+    <div>
+      <Router>
+        <Switch>
+          <Route path={["/admin", "/register", "/dangnhap", "/"]}>
+            <CheckMenu />
+          </Route>
+        </Switch>
 
-                <Switch>
-                    <Route exact path="/">
-                        <Home />
-                    </Route>
-                    {checkAdmin}
-                    <Route exact path="/jobs">
-                        <Jobs />
-                    </Route>
-                    <Route exact path="/news">
-                        <ListNews />
-                    </Route>
-                    <Route exact path="/news/detailNew/:id">
-                        <DetailNew />
-                    </Route>
-                    <Route exact path="/jobs/work/:id">
-                        <DetailJob />
-                    </Route>
-                    <Route exact path="/companys">
-                        <Company />
-                    </Route>
-                    <Route exact path="/companys/:id">
-                        <DetailCompany />
-                    </Route>
-                    <Route exact path="/candidates">
-                        <Candidates />
-                    </Route>
-                    <Route exact path="/candidates/:id">
-                        <DetailCandidate />
-                    </Route>
-                    <Route exact path="/login">
-                        <Login onLogin={handleLogin} />
-                    </Route>
-                    <Route exact path="/register">
-                        <Register />
-                    </Route>
-                    <Route exact path="/inforCompany">
-                        <InforCompany />
-                    </Route>
-                    <Route exact path="/inforUser">
-                        <InforUser />
-                    </Route>
-                    {/* <Route exact path="/createCv">
+        <Switch>
+          <Route exact path="">
+            <Home />
+          </Route>
+          {checkAdmin}
+          <Route exact path="/congviec">
+            <Jobs />
+          </Route>
+          <Route exact path="/news">
+            <ListNews />
+          </Route>
+          <Route exact path="/news/detailNew/:id">
+            <DetailNew />
+          </Route>
+          <Route exact path="/congviec/work/:id">
+            <DetailJob />
+          </Route>
+          <Route exact path="/congty">
+            <Company />
+          </Route>
+          <Route exact path="/congty/:id">
+            <DetailCompany />
+          </Route>
+          <Route exact path="/ungvien">
+            <Candidates />
+          </Route>
+          <Route exact path="/ungvien/:id">
+            <DetailCandidate />
+          </Route>
+          <Route exact path="/dangnhap">
+            <Login onLogin={handleLogin} />
+          </Route>
+          <Route exact path="/register">
+            <Register />
+          </Route>
+          <Route exact path="/inforCompany">
+            <InforCompany />
+          </Route>
+          <Route exact path="/inforUser">
+            <InforUser />
+          </Route>
+          {/* <Route exact path="/createCv">
             <CreateCv />
           </Route> */}
-                    <Route exact path="/detaiFormCV/:id">
-                        <DetailFormCV />
-                    </Route>
-                    <Route exact path="/inforCV">
-                        <InforCV />
-                    </Route>
-
-                </Switch>
-            </Router>
-        </div>
-    );
+          <Route exact path="/detaiFormCV/:id">
+            <DetailFormCV />
+          </Route>
+          <Route exact path="/inforCV">
+            <InforCV />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  );
 }
 function Ladmin() {
-    let { path, url } = useRouteMatch();
+  let { path, url } = useRouteMatch();
 
-    return <Admin path={path} url={url} />;
+  return <Admin path={path} url={url} />;
 }
 export default App;

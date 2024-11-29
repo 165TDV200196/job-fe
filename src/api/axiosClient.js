@@ -24,7 +24,7 @@ import queryString from "query-string";
 //     })
 // }
 const axiosClient = axios.create({
-  baseURL: `http://localhost:777`,
+  baseURL: `https://tuyendung.htcte.com/`,
   headers: {
     "content-type": "application/json",
   },
@@ -49,6 +49,6 @@ axiosClient.interceptors.response.use(
   (error) => {
     // Handle errors
     throw error;
-  }
+  },
 );
 export default axiosClient;

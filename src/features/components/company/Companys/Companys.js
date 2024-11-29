@@ -53,7 +53,7 @@ export default function Companys() {
                       <span>{data.address}</span>
                     </div>
                     <div className="company__box__button">
-                      <Link to={`/companys/${data.id}`}>Xem thêm</Link>
+                      <Link to={`/congty/${data.id}`}>Xem thêm</Link>
                     </div>
                   </div>
                 </div>

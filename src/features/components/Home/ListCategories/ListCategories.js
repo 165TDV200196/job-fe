@@ -34,7 +34,7 @@ export default function ListCategories() {
             GetCategoryHome(typework).map((ok, index) => (
               <div className="col-lg-3 col-md-4 col-sm-12 " key={index}>
                 <Link
-                  to={`jobs?typeWordId=${ok.id}`}
+                  to={`congviec?typeWordId=${ok.id}`}
                   className="categori__link"
                 >
                   <div className="categori__box">

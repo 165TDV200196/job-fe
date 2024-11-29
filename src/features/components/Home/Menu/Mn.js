@@ -71,7 +71,7 @@ export default function Mn(props) {
   const ss = (
     <Menu>
       <Menu.Item key="0">
-        <Link to="/login">Đăng nhập</Link>
+        <Link to="/dangnhap">Đăng nhập</Link>
       </Menu.Item>
       {user ? (user.type === "company" ? inforCompany : inforUser) : ""}
       {user ? logOut : ""}
@@ -95,13 +95,13 @@ export default function Mn(props) {
             <Link to="/">Trang chủ</Link>
           </div>
           <div className="item" id="candidates">
-            <Link to="/candidates">Ứng viên</Link>
+            <Link to="/ungvien">Ứng viên</Link>
           </div>
           <div className="item" id="jobs">
-            <Link to="/jobs">Việc làm</Link>
+            <Link to="/congviec">Việc làm</Link>
           </div>
           <div className="item" id="companys">
-            <Link to="/companys">Nhà tuyển dụng</Link>
+            <Link to="/congty">Nhà tuyển dụng</Link>
           </div>
           {/* <div className="item">
             <Link to="/createCv">Tạo cv</Link>

@@ -21,7 +21,7 @@ export default function ListJobs() {
       <div className="heading">
         <div className="heading__title">
           <h3>
-            <Link to="/jobs">Công việc</Link> nổi bật
+            <Link to="/congviec">Công việc</Link> nổi bật
           </h3>
         </div>
         <div className="heading__hr"></div>
@@ -31,7 +31,7 @@ export default function ListJobs() {
           {loading ? (
             <SpinLoad />
           ) : (
-            work.rows.map((ok, index) => (
+            work.rows?.map((ok, index) => (
               <div className="col-lg-6" key={index}>
                 <div className="job__box">
                   <div className="job__tag">hot</div>
@@ -40,12 +40,12 @@ export default function ListJobs() {
                   </div>
                   <div className="job__content">
                     <div className="job__title">
-                      <Link to={`/jobs/work/${ok.id}`}>
+                      <Link to={`/congviec/work/${ok.id}`}>
                         <h4 className="jobTitle">{ok.name}</h4>
                       </Link>
                     </div>
                     <div className="job__nameCompany">
-                      <Link to={`/jobs/work/${ok.id}`}>
+                      <Link to={`/congviec/work/${ok.id}`}>
                         <span>{ok.Company.name}</span>
                       </Link>
                     </div>

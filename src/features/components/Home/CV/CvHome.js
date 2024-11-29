@@ -17,7 +17,7 @@ export default function CvHome() {
         <Link className="btnCV createCv" to="#">
           Tạo CV
         </Link>
-        <Link to="/jobs" className="btnCV searchCv">
+        <Link to="/congviec" className="btnCV searchCv">
           Tìm việc ngay
         </Link>
       </div>

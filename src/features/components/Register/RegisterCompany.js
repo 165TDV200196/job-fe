@@ -42,7 +42,7 @@ export default function RegisterCompany() {
       password: data.password,
       status: 0,
     };
-    const link = "http://localhost:777/companys";
+    const link = "https://tuyendung.htcte.com/companys";
     axios
       .post(link, dataCompany)
       .then((ok) => {
@@ -53,7 +53,7 @@ export default function RegisterCompany() {
           setTimeout(() => {
             actionResult();
           }, 700);
-          history.push("/login");
+          history.push("/dangnhap");
         }
       })
       .catch((er) => {

@@ -66,14 +66,14 @@ export default function Job({
                     </div>
                     <div className="job__content">
                       <div className="job__title">
-                        <Link to={`/jobs/work/${data.id}`}>
+                        <Link to={`/congviec/work/${data.id}`}>
                           <h4 className="jobTitle" title={data.name}>
                             {data.name}
                           </h4>
                         </Link>
                       </div>
                       <div className="job__nameCompany">
-                        <Link to={`/jobs/work/${data.id}`}>
+                        <Link to={`/congviec/work/${data.id}`}>
                           {" "}
                           <span>{data.Company.name}</span>
                         </Link>
@@ -113,14 +113,14 @@ export default function Job({
                   </div>
                   <div className="job__content">
                     <div className="job__title">
-                      <Link to={`/jobs/work/${data.id}`}>
+                      <Link to={`/congviec/work/${data.id}`}>
                         <h4 className="jobTitle" title={data.name}>
                           {data.name}
                         </h4>
                       </Link>
                     </div>
                     <div className="job__nameCompany">
-                      <Link to={`/jobs/work/${data.id}`}>
+                      <Link to={`/congviec/work/${data.id}`}>
                         {" "}
                         <span>{data.Company.name}</span>
                       </Link>

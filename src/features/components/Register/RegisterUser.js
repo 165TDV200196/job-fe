@@ -37,7 +37,7 @@ export default function RegisterUser() {
       asUserRole,
       status: 1,
     };
-    const link = "http://localhost:777/users";
+    const link = "https://tuyendung.htcte.com/users";
     axios
       .post(link, dataUser)
       .then((ok) => {
@@ -45,7 +45,7 @@ export default function RegisterUser() {
           message.info("Email đã được đăng ký!");
         } else {
           message.success("Đăng ký tài khoản thành công!");
-          history.push("/login");
+          history.push("/dangnhap");
         }
       })
       .catch((er) => {

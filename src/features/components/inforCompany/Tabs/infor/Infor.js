@@ -167,7 +167,7 @@ export default function Infor({ id }) {
       setTimeout(() => {
         actionResult({ page: 1 });
       }, 800);
-      history.push(`/companys/${id}`);
+      history.push(`/congty/${id}`);
     }
   };
   const hangdelimage = (e) => {

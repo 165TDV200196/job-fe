@@ -90,7 +90,7 @@ export default function Work() {
               pagination={false}
               dataSource={work.rows.map((ok, index) => ({
                 key: index + 1,
-                name: <Link to={`/jobs/work/${ok.id}`}>{ok.name}</Link>,
+                name: <Link to={`/congviec/work/${ok.id}`}>{ok.name}</Link>,
                 status: (
                   <div className="action">
                     {ok.status === 1 ? (
